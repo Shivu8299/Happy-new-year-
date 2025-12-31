@@ -1,17 +1,33 @@
-// --- FIREWORK ANIMATION (VIDEO START) ---
 const canvas = document.getElementById('firework-canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
 
 let particles = [];
-let rocket = { x: canvas.width/2, y: canvas.height, targetY: canvas.height/3, speed: 10, active: true };
-let exploded = false;
+let rocket = { x: canvas.width / 2, y: canvas.height, targetY: canvas.height / 2, speed: 6, active: true };
 
-function animateFirework() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function createExplosion(x, y) {
+    for (let i = 0; i < 100; i++) {
+        particles.push({
+            x: x,
+            y: y,
+            angle: Math.random() * Math.PI * 2,
+            speed: Math.random() * 6 + 2,
+            alpha: 1,
+            size: Math.random() * 3 + 1
+        });
+    }
+}
 
-    // 1. Rocket phase
+function animate() {
+    ctx.fillStyle = 'rgba(10, 10, 26, 0.2)'; // Fades out previous frames
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     if (rocket.active) {
         ctx.fillStyle = "#FFD700";
         ctx.beginPath();
@@ -22,108 +38,62 @@ function animateFirework() {
         if (rocket.y <= rocket.targetY) {
             rocket.active = false;
             createExplosion(rocket.x, rocket.y);
-            exploded = true;
+            revealIntro(); // Reveal text when explosion starts
         }
     }
 
-    // 2. Explosion phase
-    if (exploded) {
-        particles.forEach((p, i) => {
-            p.x += Math.cos(p.angle) * p.speed;
-            p.y += Math.sin(p.angle) * p.speed;
-            p.alpha -= 0.01;
-            p.speed *= 0.95;
+    particles.forEach((p, i) => {
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.alpha -= 0.01;
+        p.speed *= 0.96;
 
-            ctx.fillStyle = `rgba(255, 215, 0, ${p.alpha})`;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fill();
+        ctx.fillStyle = `rgba(255, 215, 0, ${p.alpha})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
 
-            if (p.alpha <= 0) particles.splice(i, 1);
-        });
+        if (p.alpha <= 0) particles.splice(i, 1);
+    });
 
-        // 3. Show Text after explosion starts
-        if (particles.length < 50) {
-            document.getElementById('intro-content').classList.remove('hidden-content');
-            document.getElementById('intro-content').classList.add('visible-content');
-        }
-    }
-
-    if (particles.length > 0 || rocket.active) {
-        requestAnimationFrame(animateFirework);
-    }
+    requestAnimationFrame(animate);
 }
 
-function createExplosion(x, y) {
-    for (let i = 0; i < 80; i++) {
-        particles.push({
-            x: x, y: y,
-            angle: Math.random() * Math.PI * 2,
-            speed: Math.random() * 6 + 2,
-            alpha: 1,
-            size: Math.random() * 3
-        });
-    }
+function revealIntro() {
+    const intro = document.getElementById('intro-content');
+    intro.classList.remove('hidden-content');
+    intro.classList.add('visible-content');
 }
 
-// Start immediately
-animateFirework();
+// FAILSAFE: If animation doesn't finish, show content anyway after 3 seconds
+setTimeout(revealIntro, 3000);
 
+animate();
 
-// --- SCENE NAVIGATION ---
+// SCENE NAVIGATION
 function goToScene(num) {
     document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
     document.getElementById(`scene-${num}`).classList.add('active');
-
-    if (num === 7) startLoading(); // Loading Bar Scene
-    if (num === 9) typeWriterEffect(); // Sealed Scene
+    
+    // Typewriter logic for final scene
+    if(num === 9) startTypewriter();
 }
 
-
-// --- LOADING BAR ---
-function startLoading() {
-    let width = 0;
-    const bar = document.getElementById('progressBar');
-    const txt = document.getElementById('progressText');
-    const interval = setInterval(() => {
-        if (width >= 100) {
-            clearInterval(interval);
-            setTimeout(() => goToScene(8), 500); // Go to Letter
-        } else {
-            width++;
-            bar.style.width = width + '%';
-            txt.innerText = width + '%';
-        }
-    }, 30);
-}
-
-
-// --- MUSIC PLAYER ---
-let audio = document.getElementById('bg-music');
-function playMusic(src, el) {
-    document.querySelectorAll('.cassette').forEach(c => c.classList.remove('playing'));
-    el.classList.add('playing');
-    audio.src = src;
-    audio.play();
-}
-
-
-// --- TYPEWRITER EFFECT (LAST SCENE) ---
-const finalMsg = "Happy New Year! May 2026 be kind, exciting, and full of opportunities 🌟";
-function typeWriterEffect() {
-    const el = document.getElementById('typewriter-text');
-    el.innerHTML = "";
+function startTypewriter() {
+    const text = "Happy New Year! May 2026 be kind, exciting, and full of opportunities 🌟";
+    const container = document.getElementById('typewriter-text');
     let i = 0;
+    container.innerHTML = "";
     
     function type() {
-        if (i < finalMsg.length) {
-            el.innerHTML += finalMsg.charAt(i);
+        if (i < text.length) {
+            container.innerHTML += text.charAt(i);
             i++;
             setTimeout(type, 50);
         } else {
-            // Show Restart Button after typing
-            document.getElementById('restartBtn').classList.add('show');
+            document.getElementById('restartBtn').style.opacity = "1";
+            document.getElementById('restartBtn').style.pointerEvents = "all";
         }
     }
     type();
-}
+        }
