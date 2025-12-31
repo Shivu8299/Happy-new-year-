@@ -27,23 +27,18 @@
 
     <section id="scene-2" class="scene red-mode">
         <img src="santa_top_left.png" class="corner-img top-left">
-        
         <div class="card-container">
-            <h2 class="greeting-header">HAPPY NEW YEAR TO YOU!</h2>
+            <h2 class="greeting-header">HAPPY NEW YEAR TO YOU ANUSHKA!</h2>
             <p class="greeting-text">Thanks for being part of my 2025, now let's make 2026 even better!</p>
-            
-            <div class="bbq-icon">🍖🔥</div> 
-            
-            <button class="white-pill-btn" onclick="goToScene(3)">Continue to see more surprises! ➡</button>
+            <div class="bbq-icon">🍢🔥</div> 
+            <button class="white-pill-btn" onclick="goToScene(3)">Continue to see more surprises!</button>
         </div>
-
         <img src="strawberry_jump.gif" class="corner-img bottom-right">
     </section>
 
     <section id="scene-3" class="scene light-mode">
         <div class="content-top">
             <h2 class="fancy-title">Goals for 2026<br><span class="sub-fancy">Bucket List</span></h2>
-            
             <div class="checklist">
                 <div class="check-item">
                     <input type="checkbox" id="c1" checked>
@@ -62,7 +57,6 @@
                     <label for="c4">❤️ Spend quality time with people who matter</label>
                 </div>
             </div>
-
             <button class="pink-pill-btn" onclick="goToScene(4)">LET'S GO! ➡</button>
         </div>
     </section>
@@ -74,7 +68,7 @@
 
             <div class="cassette" onclick="playMusic('high_on_you.mp3', this)">
                 <div class="cassette-label">
-                    <img src="song1.jpg" class="album-art">
+                    <img src="song1.jpg" class="album-art-big">
                     <div class="song-info">
                         <div class="song-title">High On You</div>
                         <div class="song-desc">GOOD VIBES ONLY</div>
@@ -85,7 +79,7 @@
 
             <div class="cassette" onclick="playMusic('for_a_reason.mp3', this)">
                 <div class="cassette-label">
-                    <img src="song2.jpg" class="album-art">
+                    <img src="song2.jpg" class="album-art-big">
                     <div class="song-info">
                         <div class="song-title">For a Reason</div>
                         <div class="song-desc">SOME MOMENTS FEEL RIGHT</div>
@@ -96,10 +90,10 @@
 
              <div class="cassette" onclick="playMusic('dil_ka_jo_haal.mp3', this)">
                 <div class="cassette-label">
-                    <img src="song1.jpg" class="album-art">
+                    <img src="song1.jpg" class="album-art-big">
                     <div class="song-info">
                         <div class="song-title">Dil Ka Jo Haal Hai</div>
-                        <div class="song-desc">QUIET REFLECTIONS</div>
+                        <div class="song-desc">PERFECT REFLECTIONS</div>
                     </div>
                 </div>
                 <div class="tape-wheels"><div class="wheel left"></div><div class="wheel right"></div></div>
@@ -118,40 +112,22 @@
 
             <div class="flip-container" onclick="this.classList.toggle('flipped')">
                 <div class="flipper">
-                    <div class="front note-pink">
-                        <div class="tape"></div>
-                        <p class="handwriting-header">You make moments feel lighter 🤍</p>
-                    </div>
-                    <div class="back">
-                        <img src="flip1.jpg" class="flip-img">
-                    </div>
+                    <div class="front note-pink"><div class="tape"></div><p class="handwriting">You make moments feel lighter 🤍</p></div>
+                    <div class="back"><img src="flip1.jpg" class="flip-img"></div>
                 </div>
             </div>
 
             <div class="flip-container" onclick="this.classList.toggle('flipped')">
                 <div class="flipper">
-                    <div class="front note-yellow">
-                        <div class="tape"></div>
-                        <p class="handwriting-header">You're appreciated more than you know 🙂</p>
-                    </div>
-                    <div class="back">
-                        <img src="flip2.jpg" class="flip-img" onerror="this.src='pop_cat.gif'">
-                    </div>
+                    <div class="front note-yellow"><div class="tape"></div><p class="handwriting">You're appreciated more than you know 🙂</p></div>
+                    <div class="back"><img src="flip2.jpg" class="flip-img"></div>
                 </div>
             </div>
 
             <div class="flip-container" onclick="this.classList.toggle('flipped')">
                 <div class="flipper">
-                    <div class="front note-white">
-                        <div class="tape"></div>
-                        <div class="polaroid-preview">
-                            <img src="pop_cat.gif" alt="preview">
-                            <span>A Thought...</span>
-                        </div>
-                    </div>
-                    <div class="back">
-                        <img src="flip3.jpg" class="flip-img" onerror="this.src='pop_cat.gif'">
-                    </div>
+                    <div class="front note-white"><div class="tape"></div><p class="handwriting">Valid All Year <br> Especially on tough days</p></div>
+                    <div class="back"><img src="flip3.jpg" class="flip-img"></div>
                 </div>
             </div>
 
@@ -173,26 +149,21 @@
 
     <section id="scene-7" class="scene light-mode">
         <div class="content-center">
-            <img src="pop_cat.gif" class="small-cat-icon">
+            <img src="pop_cat.gif" class="loading-cat">
             <p class="handwriting-text">closing 2025 on a good note...</p>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <p class="loading-status">PREPARING SOMETHING FOR 2026: <span id="progressText">0%</span></p>
+            <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+            <p class="loading-status">PREPARING FOR 2026: <span id="progressText">0%</span></p>
         </div>
     </section>
 
     <section id="scene-8" class="scene light-mode">
         <div class="letter-container">
-            <div class="letter-header">
-                <img src="final_cat_blend.png" alt="Header">
-            </div>
+            <div class="letter-header"><img src="final_cat_blend.png"></div>
             <div class="letter-body">
                 <div class="greeting">Hey Anuradha,</div>
                 <h2 class="letter-title">One Last Note</h2>
                 <p>As the new year begins, I just wanted to share a few good thoughts with you.</p>
                 <p>I hope the coming year brings you peace, growth, and many small wins.</p>
-                <hr class="line-break">
                 <button class="seal-btn" onclick="goToScene(9)">SEAL IT ✉ 🔒</button>
             </div>
         </div>
@@ -201,9 +172,7 @@
     <section id="scene-9" class="scene light-mode">
         <div class="content-center">
             <h2 class="fancy-title">Sealed ✉</h2>
-            <div class="white-box-shadow">
-                <p id="typewriter-text" class="handwriting-big"></p>
-            </div>
+            <div class="white-box-shadow"><p id="typewriter-text" class="handwriting-big"></p></div>
             <button class="outline-btn hidden-btn" id="restartBtn" onclick="location.reload()">RESTART THE JOURNEY</button>
         </div>
     </section>
