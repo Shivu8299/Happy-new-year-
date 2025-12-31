@@ -1,157 +1,129 @@
-// --- CONFIG ---
-const starCanvas = document.getElementById('star-canvas');
-const starCtx = starCanvas.getContext('2d');
-const fireCanvas = document.getElementById('firework-canvas');
-const fireCtx = fireCanvas.getContext('2d');
+// --- FIREWORK ANIMATION (VIDEO START) ---
+const canvas = document.getElementById('firework-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-starCanvas.width = fireCanvas.width = window.innerWidth;
-starCanvas.height = fireCanvas.height = window.innerHeight;
-
-// --- SCENE 1: BACKGROUND STARS ---
-const stars = [];
-for(let i=0; i<150; i++) {
-    stars.push({
-        x: Math.random() * starCanvas.width,
-        y: Math.random() * starCanvas.height,
-        r: Math.random() * 2,
-        a: Math.random()
-    });
-}
-
-function drawStars() {
-    starCtx.clearRect(0,0,starCanvas.width,starCanvas.height);
-    starCtx.fillStyle = "white";
-    stars.forEach(s => {
-        starCtx.globalAlpha = s.a;
-        starCtx.beginPath();
-        starCtx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-        starCtx.fill();
-        s.a += (Math.random() - 0.5) * 0.05;
-        if(s.a < 0) s.a = 0; if(s.a > 1) s.a = 1;
-    });
-    requestAnimationFrame(drawStars);
-}
-drawStars();
-
-// --- FIREWORK ANIMATION ---
 let particles = [];
-// Rocket starts at bottom center, targets center of screen
-let rocket = { x: fireCanvas.width/2, y: fireCanvas.height, targetY: fireCanvas.height/2, speed: 8, active: true };
-let explosionHappened = false;
+let rocket = { x: canvas.width/2, y: canvas.height, targetY: canvas.height/3, speed: 10, active: true };
+let exploded = false;
 
-function drawFirework() {
-    // If explosion is done and no particles left, stop updating firework canvas
-    if (explosionHappened && particles.length === 0) return;
+function animateFirework() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    fireCtx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
-
-    // 1. Draw Rocket (Moving Up)
+    // 1. Rocket phase
     if (rocket.active) {
-        fireCtx.fillStyle = "#FFD700"; // Gold color
-        fireCtx.beginPath();
-        fireCtx.arc(rocket.x, rocket.y, 3, 0, Math.PI * 2);
-        fireCtx.fill();
-
-        // Trail effect
-        fireCtx.fillStyle = "rgba(255, 215, 0, 0.5)";
-        fireCtx.beginPath();
-        fireCtx.arc(rocket.x, rocket.y + 10, 2, 0, Math.PI * 2);
-        fireCtx.fill();
-
+        ctx.fillStyle = "#FFD700";
+        ctx.beginPath();
+        ctx.arc(rocket.x, rocket.y, 4, 0, Math.PI * 2);
+        ctx.fill();
         rocket.y -= rocket.speed;
 
-        // Explode condition
         if (rocket.y <= rocket.targetY) {
             rocket.active = false;
             createExplosion(rocket.x, rocket.y);
+            exploded = true;
         }
     }
 
-    // 2. Draw Particles (Explosion)
-    particles.forEach((p, index) => {
-        p.x += Math.cos(p.angle) * p.speed;
-        p.y += Math.sin(p.angle) * p.speed;
-        p.alpha -= 0.015; // Fade out speed
-        p.speed *= 0.95; // Friction
+    // 2. Explosion phase
+    if (exploded) {
+        particles.forEach((p, i) => {
+            p.x += Math.cos(p.angle) * p.speed;
+            p.y += Math.sin(p.angle) * p.speed;
+            p.alpha -= 0.01;
+            p.speed *= 0.95;
 
-        if (p.alpha <= 0) {
-            particles.splice(index, 1);
-        } else {
-            fireCtx.fillStyle = `rgba(255, 215, 0, ${p.alpha})`;
-            fireCtx.beginPath();
-            fireCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            fireCtx.fill();
-        }
-    });
+            ctx.fillStyle = `rgba(255, 215, 0, ${p.alpha})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
 
-    // 3. Trigger text reveal shortly after explosion starts
-    if (!rocket.active && particles.length < 50 && !explosionHappened) {
-        explosionHappened = true;
-        // Wait 500ms then show the text
-        setTimeout(() => {
+            if (p.alpha <= 0) particles.splice(i, 1);
+        });
+
+        // 3. Show Text after explosion starts
+        if (particles.length < 50) {
             document.getElementById('intro-content').classList.remove('hidden-content');
             document.getElementById('intro-content').classList.add('visible-content');
-        }, 500);
+        }
     }
 
-    requestAnimationFrame(drawFirework);
+    if (particles.length > 0 || rocket.active) {
+        requestAnimationFrame(animateFirework);
+    }
 }
 
 function createExplosion(x, y) {
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 80; i++) {
         particles.push({
-            x: x,
-            y: y,
+            x: x, y: y,
             angle: Math.random() * Math.PI * 2,
-            speed: Math.random() * 5 + 2,
+            speed: Math.random() * 6 + 2,
             alpha: 1,
             size: Math.random() * 3
         });
     }
 }
 
-// Start Animation sequence
-drawFirework();
+// Start immediately
+animateFirework();
 
 
-// --- SCENE MANAGEMENT ---
-function goToScene(sceneNum) {
-    // Hide all scenes
-    document.querySelectorAll('.scene').forEach(scene => {
-        scene.classList.remove('active');
-    });
-    
-    // Show requested scene
-    const target = document.getElementById(`scene-${sceneNum}`);
-    if (target) {
-        target.classList.add('active');
-        if (sceneNum === 2) startLoading();
-    }
+// --- SCENE NAVIGATION ---
+function goToScene(num) {
+    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+    document.getElementById(`scene-${num}`).classList.add('active');
+
+    if (num === 7) startLoading(); // Loading Bar Scene
+    if (num === 9) typeWriterEffect(); // Sealed Scene
 }
+
 
 // --- LOADING BAR ---
 function startLoading() {
+    let width = 0;
     const bar = document.getElementById('progressBar');
     const txt = document.getElementById('progressText');
-    let width = 0;
-    
     const interval = setInterval(() => {
         if (width >= 100) {
             clearInterval(interval);
-            setTimeout(() => goToScene(3), 500);
+            setTimeout(() => goToScene(8), 500); // Go to Letter
         } else {
             width++;
             bar.style.width = width + '%';
             txt.innerText = width + '%';
         }
-    }, 40);
+    }, 30);
 }
 
+
 // --- MUSIC PLAYER ---
-let currentAudio = document.getElementById('bg-music');
-function playMusic(file, element) {
+let audio = document.getElementById('bg-music');
+function playMusic(src, el) {
     document.querySelectorAll('.cassette').forEach(c => c.classList.remove('playing'));
-    element.classList.add('playing');
-    currentAudio.src = file;
-    currentAudio.play();
+    el.classList.add('playing');
+    audio.src = src;
+    audio.play();
+}
+
+
+// --- TYPEWRITER EFFECT (LAST SCENE) ---
+const finalMsg = "Happy New Year! May 2026 be kind, exciting, and full of opportunities 🌟";
+function typeWriterEffect() {
+    const el = document.getElementById('typewriter-text');
+    el.innerHTML = "";
+    let i = 0;
+    
+    function type() {
+        if (i < finalMsg.length) {
+            el.innerHTML += finalMsg.charAt(i);
+            i++;
+            setTimeout(type, 50);
+        } else {
+            // Show Restart Button after typing
+            document.getElementById('restartBtn').classList.add('show');
+        }
+    }
+    type();
 }
