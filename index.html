@@ -1,81 +1,108 @@
-<section id="scene-2" class="scene red-mode">
-    <div class="envelope-container">
-        <div class="envelope-flap"></div>
-        <div class="card-medium" id="bbq-card">
-            <img src="santa_top_left.png" class="santa-icon">
-            <h2 class="card-text-main">HAPPY NEW YEAR TO YOU ANUSHKA!</h2>
-            <p class="card-text-sub">Thanks for being part of my 2025, now let's make 2026 even better!</p>
-            
-            <div class="bbq-semicircle">
-                <div class="bbq-dot">🍢</div>
-                <div class="bbq-dot">🔥</div>
-                <div class="bbq-dot">🍢</div>
-                <img src="strawberry_jump.gif" class="strawberry-cat">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Surprise for Anushka</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <section id="scene-1" class="scene active dark-mode">
+        <canvas id="star-canvas"></canvas>
+        <canvas id="firework-canvas"></canvas>
+        <div class="content-center hidden-content" id="intro-content">
+            <div class="intro-sub">H A P P Y   N E W   Y E A R !</div>
+            <h1 class="year-title">2026</h1>
+            <div class="cat-box">
+                <img src="pop_cat.gif" alt="Pop Cat">
             </div>
-            <button class="continue-btn-red" onclick="goToScene(3)">Continue to see more surprises!</button>
+            <p class="italic-msg">See what i made for you</p>
+            <button class="text-btn" onclick="goToScene(2)">STARTING THE JOURNEY</button>
         </div>
-        <div class="envelope-front"></div>
-    </div>
-</section>
+    </section>
 
-<section id="scene-3" class="scene light-mode">
-    <div class="bucket-card-aesthetic">
-        <h2 class="bucket-title">Goals for 2026</h2>
-        <h3 class="bucket-subtitle">Bucket List</h3>
-        <div class="tick-list">
-            <div class="tick-item">
-                <input type="checkbox" id="item1" checked>
-                <label for="item1">🌍 Visit a place you've always wanted</label>
+    <section id="scene-2" class="scene red-mode">
+        <div class="envelope-wrapper">
+            <div class="envelope-back"></div>
+            <div class="card-medium" id="bbq-card">
+                <img src="santa_top_left.png" class="santa-top-left">
+                <h2 class="stylish-card-head">HAPPY NEW YEAR TO YOU ANUSHKA!</h2>
+                <p class="card-p">Thanks for being part of my 2025, now let's make 2026 even better!</p>
+                <div class="bbq-semicircle">
+                    <span class="bbq-emoji">🍢</span>
+                    <span class="bbq-emoji">🔥</span>
+                    <span class="bbq-emoji">🍢</span>
+                    <img src="strawberry_jump.gif" class="strawberry-gif">
+                </div>
+                <button class="card-next-btn" onclick="goToScene(3)">Continue to see more surprises!</button>
             </div>
-            <div class="tick-item">
-                <input type="checkbox" id="item2">
-                <label for="item2">📚 Learn or read more consistently</label>
+            <div class="envelope-front"></div>
+        </div>
+    </section>
+
+    <section id="scene-3" class="scene light-mode">
+        <div class="bucket-container-aesthetic">
+            <h2 class="bucket-h2">Goals for 2026</h2>
+            <h3 class="bucket-h3">Bucket List</h3>
+            <div class="checklist-aesthetic">
+                <div class="check-row"><input type="checkbox" checked> 🌍 Visit a place you've always wanted</div>
+                <div class="check-row"><input type="checkbox"> 📚 Learn or read more consistently</div>
+                <div class="check-row"><input type="checkbox"> 🧘‍♀️ Take better care of mind & body</div>
+                <div class="check-row"><input type="checkbox"> ❤️ Spend quality time with loved ones</div>
             </div>
-            <div class="tick-item">
-                <input type="checkbox" id="item3">
-                <label for="item3">🧘‍♀️ Take better care of mind & body</label>
+            <button class="go-btn-aesthetic" onclick="goToScene(4)">LET'S GO! ➔</button>
+        </div>
+    </section>
+
+    <section id="scene-4" class="scene light-mode scrollable">
+        <div class="music-header">
+            <p class="italics-cute">Dedicated To You</p>
+            <h2 class="stylish-h2">Songs That Match Your Vibes 🎶</h2>
+        </div>
+
+        <div class="cassette-box" onclick="toggleMusic('high_on_you.mp3', this)">
+            <div class="c-label">
+                <img src="song1.jpg" class="art-large">
+                <div class="c-info"><p class="t1">High On You</p><p class="t2">GOOD VIBES ONLY</p></div>
             </div>
-            <div class="tick-item">
-                <input type="checkbox" id="item4">
-                <label for="item4">❤️ Spend quality time with loved ones</label>
+            <div class="c-mech">
+                <div class="spool"><span>+</span></div>
+                <div class="wave-mid"><canvas class="wave-cvs"></canvas></div>
+                <div class="spool"><span>+</span></div>
             </div>
         </div>
-        <button class="go-btn-cute" onclick="goToScene(4)">LET'S GO! ➔</button>
-    </div>
-</section>
 
-<section id="scene-4" class="scene light-mode scrollable">
-    <div class="music-header">
-        <p class="italics-small">Dedicated To You</p>
-        <h2 class="stylish-head">Songs That Match Your Vibes 🎶</h2>
-    </div>
-
-    <div class="cassette-player" onclick="toggleMusic('high_on_you.mp3', this)">
-        <div class="c-label"><img src="song1.jpg" class="art-large"><p>High On You</p></div>
-        <div class="c-mech">
-            <div class="reel"><div class="plus">+</div></div>
-            <div class="wave-box-mid"><canvas class="wave-mid-c"></canvas></div>
-            <div class="reel"><div class="plus">+</div></div>
+        <div class="cassette-box" onclick="toggleMusic('for_a_reason.mp3', this)">
+            <div class="c-label">
+                <img src="song2.jpg" class="art-large">
+                <div class="c-info"><p class="t1">For a Reason</p><p class="t2">SOME MOMENTS FEEL RIGHT</p></div>
+            </div>
+            <div class="c-mech">
+                <div class="spool"><span>+</span></div>
+                <div class="wave-mid"><canvas class="wave-cvs"></canvas></div>
+                <div class="spool"><span>+</span></div>
+            </div>
         </div>
-    </div>
 
-    <div class="cassette-player" onclick="toggleMusic('for_a_reason.mp3', this)">
-        <div class="c-label"><img src="song2.jpg" class="art-large"><p>For a Reason</p></div>
-        <div class="c-mech">
-            <div class="reel"><div class="plus">+</div></div>
-            <div class="wave-box-mid"><canvas class="wave-mid-c"></canvas></div>
-            <div class="reel"><div class="plus">+</div></div>
+        <div class="cassette-box" onclick="toggleMusic('dil_ka_jo_haal.mp3', this)">
+            <div class="c-label">
+                <img src="song1.jpg" class="art-large">
+                <div class="c-info"><p class="t1">Dil Ka Jo Haal Hai</p><p class="t2">PERFECT REFLECTIONS</p></div>
+            </div>
+            <div class="c-mech">
+                <div class="spool"><span>+</span></div>
+                <div class="wave-mid"><canvas class="wave-cvs"></canvas></div>
+                <div class="spool"><span>+</span></div>
+            </div>
         </div>
-    </div>
 
-    <div class="cassette-player" onclick="toggleMusic('dil_ka_jo_haal.mp3', this)">
-        <div class="c-label"><img src="song1.jpg" class="art-large"><p>Dil Ka Jo Haal Hai</p></div>
-        <div class="c-mech">
-            <div class="reel"><div class="plus">+</div></div>
-            <div class="wave-box-mid"><canvas class="wave-mid-c"></canvas></div>
-            <div class="reel"><div class="plus">+</div></div>
-        </div>
-    </div>
+        <button class="cute-floating-next" onclick="goToScene(5)">Next Surprises ➔</button>
+        <div class="spacer"></div>
+    </section>
 
-    <button class="cute-next-floating" onclick="goToScene(5)">Next ➔</button>
-</section>
+    <audio id="main-audio"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
