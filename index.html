@@ -1,43 +1,384 @@
-<div class="screen" id="screen2">
-    <div class="envelope">
-        <img src="assets/santa_top_left.png" class="santa-top" alt="Santa Cat">
-        
-        <h2 style="font-family:'Playfair Display', serif; font-size: 26px; line-height: 1.2;">
-            HAPPY NEW YEAR TO YOU <br> <span style="letter-spacing: 2px;">ANUSHKA!</span>
-        </h2>
-        
-        <p style="color: #666; font-size: 13px; margin: 15px 0; font-weight: 400;">
-            Thanks for being part of my 2025, now let's make 2026 even better!
-        </p>
-
-        <div style="display:flex; align-items:center; justify-content:center; margin: 20px 0; position: relative;">
-            
-            <svg width="140" height="140" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <path d="M70 150 L50 190" stroke="#333" stroke-width="5" stroke-linecap="round"/>
-                <path d="M130 150 L150 190" stroke="#333" stroke-width="5" stroke-linecap="round"/>
-                <path d="M40 100 A60 60 0 0 0 160 100" fill="#e57373" />
-                <rect x="40" y="95" width="120" height="8" rx="4" fill="#ef5350" />
-                <line x1="60" y1="70" x2="60" y2="100" stroke="#ffb74d" stroke-width="8" stroke-linecap="round" />
-                <circle cx="60" cy="65" r="6" fill="#fb8c00" />
-                <line x1="100" y1="60" x2="100" y2="100" stroke="#81c784" stroke-width="8" stroke-linecap="round" />
-                <circle cx="100" cy="55" r="6" fill="#4caf50" />
-                <line x1="140" y1="70" x2="140" y2="100" stroke="#64b5f6" stroke-width="8" stroke-linecap="round" />
-                <circle cx="140" cy="65" r="6" fill="#2196f3" />
-                <line x1="50" y1="105" x2="150" y2="105" stroke="rgba(0,0,0,0.1)" stroke-width="2" />
-            </svg>
-
-            <img src="assets/strawberry_jump.gif" class="strawberry-cat" style="width: 45px; margin-left: -15px; margin-bottom: -30px;">
-        </div>
-
-        <p style="font-size: 11px; color: #888; margin-bottom: 20px;">Continue to see more surprises!</p>
-        
-        <button onclick="nextScreen(3)" style="background:var(--accent-red); color:white; border:none; padding:14px 45px; border-radius:4px; font-weight:600; font-size: 14px; letter-spacing: 1px; display: flex; align-items: center; margin: 0 auto;">
-            CONTINUE &nbsp; <span style="font-size: 18px;">➔</span>
-        </button>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy New Year 2026</title>
     
-    <div style="margin-top: 25px; line-height: 1.4;">
-        <p style="font-size: 9px; color: #aaa; letter-spacing: 2px;">MADE WITH CARE 🤍</p>
-        <p style="font-size: 12px; color: #888; font-weight: 600; letter-spacing: 3px;">GREETINGS</p>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #05070a;
+            --bg-light: #fdf5e6; /* Beige */
+            --accent-red: #b32d2e; /* Deep Red */
+            --accent-gold: #c5a059; /* Gold */
+            --text-gray: #4a4a4a;
+            --cassette-bg: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--bg-dark); 
+            color: white; 
+            overflow: hidden; 
+            height: 100vh;
+        }
+
+        /* --- SCREEN SYSTEM --- */
+        .screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            z-index: 1;
+        }
+        
+        .active { display: flex; opacity: 1; z-index: 10; animation: fadeIn 0.8s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- SCREEN 1: INTRO --- */
+        #screen1 { background: radial-gradient(circle at center, #1a1a2e 0%, #05070a 100%); }
+        .star-bg { position: absolute; width: 100%; height: 100%; background-image: radial-gradient(white 1px, transparent 1px); background-size: 50px 50px; opacity: 0.2; pointer-events: none; }
+        .year-text { font-family: 'Playfair Display', serif; font-size: 70px; color: var(--accent-gold); position: relative; display: inline-flex; align-items: center; }
+        .cat-thumb { width: 60px; height: 60px; border: 2px solid var(--accent-gold); border-radius: 8px; margin-left: 15px; object-fit: cover; }
+        .sub-text { font-size: 12px; letter-spacing: 4px; color: white; opacity: 0.7; margin-top: -10px; margin-bottom: 40px; }
+        .btn-link { background: none; border: none; color: white; border-bottom: 1px solid rgba(255,255,255,0.5); padding-bottom: 2px; font-size: 11px; letter-spacing: 2px; cursor: pointer; margin-top: 50px; }
+
+        /* --- SCREEN 2: ENVELOPE --- */
+        #screen2 { background: var(--bg-light); color: var(--text-gray); }
+        .envelope { background: white; width: 100%; max-width: 350px; padding: 40px 25px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-bottom: 15px solid var(--accent-red); position: relative; }
+        .santa-cat { position: absolute; top: -30px; left: 15px; width: 60px; transform: rotate(-10deg); }
+        .title-font { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; color: var(--accent-red); line-height: 1.2; margin-bottom: 15px; }
+        .msg-text { font-size: 13px; line-height: 1.6; color: #666; margin-bottom: 20px; }
+        .bbq-container { display: flex; align-items: center; justify-content: center; position: relative; height: 120px; margin: 10px 0 30px 0; }
+        .strawberry-cat { width: 45px; margin-left: -15px; margin-bottom: -25px; z-index: 2; }
+        .btn-red { background: var(--accent-red); color: white; border: none; padding: 14px 40px; border-radius: 6px; font-weight: 600; font-size: 13px; letter-spacing: 1px; cursor: pointer; display: inline-flex; align-items: center; box-shadow: 0 5px 15px rgba(179, 45, 46, 0.3); }
+
+        /* --- SCREEN 3: BUCKET LIST --- */
+        #screen3 { background: var(--bg-light); color: var(--text-gray); }
+        .list-container { text-align: left; width: 100%; max-width: 320px; margin: 30px 0; }
+        .list-item { display: flex; align-items: flex-start; margin-bottom: 25px; font-size: 15px; font-weight: 500; color: #444; }
+        .checkbox { width: 22px; height: 22px; border: 2px solid var(--accent-red); margin-right: 15px; flex-shrink: 0; border-radius: 4px; position: relative; }
+        .checkbox::after { content: ''; display: none; width: 10px; height: 10px; background: var(--accent-red); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        /* --- SCREEN 4: MUSIC PLAYER --- */
+        #screen4 { background: var(--bg-light); color: var(--text-gray); }
+        .cassette-wrapper { width: 100%; max-width: 340px; margin-top: 20px; }
+        .cassette { 
+            background: var(--cassette-bg); color: white; 
+            padding: 12px; border-radius: 8px; margin-bottom: 15px; 
+            display: flex; align-items: center; text-align: left; 
+            cursor: pointer; transition: 0.3s; border: 2px solid transparent; 
+        }
+        .cassette.playing { background: var(--accent-red); border-color: var(--accent-red); transform: scale(1.02); }
+        .album-art { width: 50px; height: 50px; border-radius: 4px; margin-right: 12px; object-fit: cover; }
+        .song-details h4 { font-size: 14px; margin-bottom: 3px; }
+        .song-details p { font-size: 9px; opacity: 0.7; letter-spacing: 0.5px; text-transform: uppercase; }
+        .play-icon { margin-left: auto; font-size: 18px; }
+
+        /* --- SCREEN 5: FLIP CARDS --- */
+        #screen5 { background: var(--bg-light); }
+        .stack-container { position: relative; width: 280px; height: 360px; margin-top: 30px; perspective: 1000px; }
+        .card { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: white; border-radius: 15px; padding: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: transform 0.6s ease, opacity 0.5s; 
+            transform-style: preserve-3d; cursor: pointer;
+            border: 8px solid white;
+        }
+        .card img { width: 100%; height: 75%; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
+        .card p { font-family: 'Dancing Script', cursive; font-size: 24px; color: #555; }
+        .card.fly-away { transform: translate(100px, -100px) rotate(20deg); opacity: 0; pointer-events: none; }
+        /* Styling based on stack order */
+        #card1 { z-index: 3; transform: rotate(-2deg); background: #fff0f5; }
+        #card2 { z-index: 2; transform: rotate(2deg); background: #f0f8ff; }
+        #card3 { z-index: 1; transform: rotate(0deg); background: #f5f5dc; }
+
+        /* --- SCREEN 6: GIFT --- */
+        #screen6 { background: var(--bg-light); color: var(--text-gray); }
+        .gift-img { width: 160px; margin-bottom: 20px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* --- SCREEN 7: LOADING --- */
+        #screen7 { background: var(--bg-light); color: var(--text-gray); }
+        .progress-container { width: 250px; height: 8px; background: #e0e0e0; border-radius: 10px; margin: 20px auto; overflow: hidden; }
+        .progress-bar { width: 0%; height: 100%; background: var(--accent-gold); transition: width 0.1s; }
+
+        /* --- SCREEN 8: FINAL NOTE --- */
+        #screen8 { background: var(--bg-light); }
+        .note-card { background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 380px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .blend-img { width: 100%; border-radius: 10px; margin-bottom: 20px; opacity: 0.9; mix-blend-mode: multiply; }
+
+        /* --- SCREEN 9: SEALED --- */
+        #screen9 { background: var(--bg-light); color: var(--text-gray); }
+        .sealed-msg { border: 2px dashed var(--accent-gold); padding: 30px; border-radius: 10px; max-width: 300px; }
+
+        /* Utilities */
+        .gold-text { color: var(--accent-gold); }
+        .italic { font-style: italic; font-family: 'Playfair Display', serif; }
+        .hidden { display: none !important; }
+
+    </style>
+</head>
+<body>
+
+    <div class="screen active" id="screen1">
+        <div class="star-bg"></div>
+        <p class="sub-text">HAPPY NEW YEAR!</p>
+        <div class="year-text">
+            2026 <img src="assets/cat_thumb.jpg" class="cat-thumb" alt="cat">
+        </div>
+        <p style="font-size: 14px; opacity: 0.8; margin-top: 15px;">See what i made for you</p>
+        <button class="btn-link" onclick="nextScreen(2)">• STARTING THE JOURNEY</button>
     </div>
-</div>
+
+    <div class="screen" id="screen2">
+        <div class="envelope">
+            <img src="assets/santa_top_left.png" class="santa-cat" alt="santa">
+            <h2 class="title-font">HAPPY NEW YEAR TO YOU <br> <span style="font-size: 28px;">ANUSHKA!</span></h2>
+            <p class="msg-text">Thanks for being part of my 2025, now let's make 2026 even better!</p>
+            
+            <div class="bbq-container">
+                <svg width="130" height="130" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M70 150 L50 190" stroke="#333" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M130 150 L150 190" stroke="#333" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M40 100 A60 60 0 0 0 160 100" fill="#e57373" />
+                    <rect x="40" y="95" width="120" height="10" rx="5" fill="#ef5350" />
+                    <line x1="60" y1="70" x2="60" y2="100" stroke="#ffb74d" stroke-width="8" stroke-linecap="round" />
+                    <circle cx="60" cy="65" r="7" fill="#fb8c00" />
+                    <line x1="100" y1="60" x2="100" y2="100" stroke="#81c784" stroke-width="8" stroke-linecap="round" />
+                    <circle cx="100" cy="55" r="7" fill="#4caf50" />
+                    <line x1="140" y1="70" x2="140" y2="100" stroke="#64b5f6" stroke-width="8" stroke-linecap="round" />
+                    <circle cx="140" cy="65" r="7" fill="#2196f3" />
+                    <line x1="50" y1="110" x2="150" y2="110" stroke="rgba(0,0,0,0.1)" stroke-width="2" />
+                </svg>
+                <img src="assets/strawberry_jump.gif" class="strawberry-cat" alt="strawberry">
+            </div>
+
+            <p style="font-size: 11px; color: #999; margin-bottom: 25px;">Continue to see more surprises!</p>
+            <button class="btn-red" onclick="nextScreen(3)">CONTINUE &nbsp; ➔</button>
+        </div>
+        <div style="margin-top: 30px;">
+            <p style="font-size: 10px; color: #bbb; letter-spacing: 2px;">MADE WITH CARE 🤍</p>
+            <p style="font-size: 12px; color: #999; font-weight: 700; letter-spacing: 3px; margin-top: 5px;">GREETINGS</p>
+        </div>
+    </div>
+
+    <div class="screen" id="screen3">
+        <h2 class="title-font" style="color: var(--accent-red);">Goals for 2026 <br><span class="italic" style="font-size: 20px; color: #888;">Bucket List</span></h2>
+        <div class="list-container">
+            <div class="list-item"><div class="checkbox"></div> 🌍 Visit a place you've always wanted to see</div>
+            <div class="list-item"><div class="checkbox"></div> 📚 Learn or read more consistently</div>
+            <div class="list-item"><div class="checkbox"></div> 🧘 Take better care of your mind and body</div>
+            <div class="list-item"><div class="checkbox"></div> ❤️ Spend quality time with people who matter</div>
+        </div>
+        <button class="btn-red" onclick="nextScreen(4)">LET'S GO! ➔</button>
+    </div>
+
+    <div class="screen" id="screen4">
+        <p class="italic gold-text" style="font-size: 14px;">Dedicated To You</p>
+        <h2 class="title-font" style="color: var(--text-gray); margin-bottom: 25px;">Songs That Match <br> Your Vibes 🎶</h2>
+        
+        <div class="cassette-wrapper">
+            <div class="cassette" id="tape1" onclick="playSong('high_on_you.mp3', 'tape1')">
+                <img src="assets/song1_thumb.jpg" class="album-art">
+                <div class="song-details">
+                    <p>Type II / CrO2</p>
+                    <h4>High On You</h4>
+                    <p>GOOD VIBES ONLY • SIDE A</p>
+                </div>
+                <div class="play-icon">▶</div>
+            </div>
+            <div class="cassette" id="tape2" onclick="playSong('for_a_reason.mp3', 'tape2')">
+                <img src="assets/song2_thumb.jpg" class="album-art">
+                <div class="song-details">
+                    <p>Type II / CrO2</p>
+                    <h4>For a Reason</h4>
+                    <p>SOME MOMENTS JUST FEEL RIGHT</p>
+                </div>
+                <div class="play-icon">▶</div>
+            </div>
+            <div class="cassette" id="tape3" onclick="playSong('dil_ka_jo_haal.mp3', 'tape3')">
+                <img src="assets/song3_thumb.jpg" class="album-art">
+                <div class="song-details">
+                    <p>Type II / CrO2</p>
+                    <h4>Dil ka Jo Haal Hai</h4>
+                    <p>PERFECT FOR QUIET REFLECTIONS</p>
+                </div>
+                <div class="play-icon">▶</div>
+            </div>
+        </div>
+        <button class="btn-red" style="margin-top: 30px;" onclick="nextScreen(5)">NEXT SURPRISE ➔</button>
+    </div>
+
+    <div class="screen" id="screen5">
+        <p class="italic gold-text">simple, honest & heartfelt</p>
+        <h2 class="title-font" style="color: var(--text-gray);">A Few Things I Want <br> To Say To You ✨</h2>
+        <p style="font-size: 12px; margin-top: 10px; color: #aaa;">(Tap the card to read)</p>
+        
+        <div class="stack-container">
+            <div class="card" id="card3" onclick="flipCard(this)">
+                <img src="assets/flip3.jpg" alt="pic">
+                <p>You make moments feel lighter 🤍</p>
+            </div>
+            <div class="card" id="card2" onclick="flipCard(this)">
+                <img src="assets/flip2.jpg" alt="pic">
+                <p>You're appreciated more than you know 😊</p>
+            </div>
+            <div class="card" id="card1" onclick="flipCard(this)">
+                <img src="assets/flip1.jpg" alt="pic">
+                <p>New Year Voucher: Extra Smiles 🎁</p>
+            </div>
+        </div>
+        <button class="btn-red hidden" id="cardsNextBtn" style="margin-top: 30px;" onclick="nextScreen(6)">READY? ➔</button>
+    </div>
+
+    <div class="screen" id="screen6">
+        <img src="assets/ferrero_cat.png" class="gift-img" alt="gift">
+        <h2 class="title-font" style="color: #444;">Ready for 2026?</h2>
+        <p style="color: #888; margin-bottom: 30px;">A new chapter is waiting to be written...</p>
+        <button class="btn-red" style="background: var(--accent-gold);" onclick="nextScreen(7)">IGNITE THE SPARK ✨</button>
+    </div>
+
+    <div class="screen" id="screen7">
+        <p style="color: #666; font-size: 14px; margin-bottom: 10px;">closing 2025 on a good note...</p>
+        <img src="assets/strawberry_jump.gif" style="width: 50px; margin-bottom: 10px;">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p style="font-size: 10px; letter-spacing: 2px; color: var(--accent-gold);" id="loadingText">PREPARING SOMETHING: 0%</p>
+    </div>
+
+    <div class="screen" id="screen8">
+        <div class="note-card">
+            <img src="assets/final_cat_blend.png" class="blend-img">
+            <h3 class="title-font" style="color: var(--accent-gold); font-size: 20px;">Hey Anushka, <br> One Last Note</h3>
+            <p style="font-size: 14px; line-height: 1.6; margin-top: 15px; color: #555;">
+                As the new year begins, I just wanted to share a few good thoughts with you.
+                <br><br>
+                I hope the coming year brings you peace, growth, and many small wins.
+            </p>
+            <button class="btn-red" style="background: #333; margin-top: 20px;" onclick="nextScreen(9)">SEAL IT ✉️</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen9">
+        <h2 class="title-font" style="margin-bottom: 20px;">Sealed ✉️</h2>
+        <div class="sealed-msg">
+            <p class="italic" style="color: #555; font-size: 18px;">
+                Happy New Year! May 2026 be kind, exciting, and full of opportunities 🌟
+            </p>
+        </div>
+        <button class="btn-link" style="color: #333; border-color: #333; margin-top: 40px;" onclick="location.reload()">RESTART THE JOURNEY</button>
+    </div>
+
+    <script>
+        // --- NAVIGATION ---
+        function nextScreen(n) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            
+            // Show target screen
+            const target = document.getElementById('screen' + n);
+            if(target) target.classList.add('active');
+
+            // Special Actions
+            if(n === 7) startLoading();
+            if(n === 5) checkCards(); // Reset cards state if needed
+        }
+
+        // --- MUSIC PLAYER ---
+        let currentAudio = null;
+        function playSong(file, tapeId) {
+            // Logic to toggle play/pause
+            if (currentAudio && currentAudio.src.includes(file)) {
+                if (currentAudio.paused) {
+                    currentAudio.play();
+                    setPlayingUI(tapeId, true);
+                } else {
+                    currentAudio.pause();
+                    setPlayingUI(tapeId, false);
+                }
+                return;
+            }
+
+            // Stop existing
+            if (currentAudio) {
+                currentAudio.pause();
+                resetTapes();
+            }
+
+            // New Song
+            currentAudio = new Audio('assets/' + file);
+            currentAudio.play().catch(e => console.log("Audio play failed (interaction needed first)"));
+            setPlayingUI(tapeId, true);
+
+            // Reset on end
+            currentAudio.onended = () => resetTapes();
+        }
+
+        function setPlayingUI(tapeId, isPlaying) {
+            const tape = document.getElementById(tapeId);
+            const icon = tape.querySelector('.play-icon');
+            if (isPlaying) {
+                tape.classList.add('playing');
+                icon.innerText = "⏸";
+            } else {
+                tape.classList.remove('playing');
+                icon.innerText = "▶";
+            }
+        }
+
+        function resetTapes() {
+            document.querySelectorAll('.cassette').forEach(c => {
+                c.classList.remove('playing');
+                c.querySelector('.play-icon').innerText = "▶";
+            });
+        }
+
+        // --- FLIP CARDS ---
+        let cardsFlipped = 0;
+        function flipCard(card) {
+            // Animate card away
+            card.classList.add('fly-away');
+            cardsFlipped++;
+
+            // If all 3 flipped, show button
+            if(cardsFlipped >= 3) {
+                setTimeout(() => {
+                    document.getElementById('cardsNextBtn').classList.remove('hidden');
+                }, 500);
+            }
+        }
+
+        // --- LOADING BAR ---
+        function startLoading() {
+            let width = 0;
+            const bar = document.getElementById('progressBar');
+            const txt = document.getElementById('loadingText');
+            
+            const interval = setInterval(() => {
+                width += Math.floor(Math.random() * 4) + 1; // Random speed
+                if(width >= 100) {
+                    width = 100;
+                    clearInterval(interval);
+                    setTimeout(() => nextScreen(8), 800); // Go to next screen
+                }
+                bar.style.width = width + '%';
+                txt.innerText = `PREPARING SOMETHING: ${width}%`;
+            }, 60);
+        }
+    </script>
+</body>
+</html>
