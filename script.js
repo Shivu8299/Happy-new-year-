@@ -1,4 +1,3 @@
-// --- STAR TWINKLE & FIREWORK ---
 const sC = document.getElementById('star-canvas');
 const fC = document.getElementById('firework-canvas');
 const sX = sC.getContext('2d');
@@ -7,6 +6,7 @@ const fX = fC.getContext('2d');
 sC.width = fC.width = window.innerWidth;
 sC.height = fC.height = window.innerHeight;
 
+// Star Background
 let stars = [];
 for(let i=0; i<160; i++) stars.push({ x: Math.random()*sC.width, y: Math.random()*sC.height, r: Math.random()*1.5, a: Math.random() });
 
@@ -22,7 +22,8 @@ function drawS() {
 }
 drawS();
 
-let rocket = { x: fC.width/2, y: fC.height, tY: fC.height/2.5, active: true };
+// Firework Logic
+let rocket = { x: fC.width/2, y: fC.height, targetY: fC.height/3, active: true };
 let parts = [];
 
 function animateF() {
@@ -30,8 +31,8 @@ function animateF() {
     if(rocket.active) {
         fX.fillStyle = "#f4c430";
         fX.beginPath(); fX.arc(rocket.x, rocket.y, 4, 0, Math.PI*2); fX.fill();
-        rocket.y -= 7.5;
-        if(rocket.y <= rocket.targetY || rocket.y < 300) {
+        rocket.y -= 6;
+        if(rocket.y <= rocket.targetY) {
             rocket.active = false;
             for(let i=0; i<85; i++) parts.push({ x: rocket.x, y: rocket.y, ang: Math.random()*Math.PI*2, sp: Math.random()*6+2, a: 1 });
             revealContent();
@@ -49,45 +50,24 @@ function animateF() {
 animateF();
 
 function revealContent() {
-    document.getElementById('intro-content').classList.add('visible-content');
+    const intro = document.getElementById('intro-content');
+    intro.classList.add('visible-content');
+    // FIX: After burst, wait 3 seconds then move to Envelope
+    setTimeout(() => { goToScene(2); }, 3500);
 }
-setTimeout(revealContent, 4000); // FAILSAFE: 4 sec baad pakka dikhayega
 
-// --- NAVIGATION ---
 function goToScene(n) {
     document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
     document.getElementById(`scene-${n}`).classList.add('active');
-    if(n !== 4) player.pause();
 }
 
-// --- MUSIC WAVE ---
+// Music Logic
 const player = document.getElementById('main-audio');
 function toggleMusic(src, el) {
     if(!player.paused && player.src.includes(src)) {
         player.pause();
-        el.classList.remove('playing');
     } else {
-        document.querySelectorAll('.cassette-box').forEach(c => c.classList.remove('playing'));
-        player.src = src; player.play();
-        el.classList.add('playing');
-        startWave(el);
+        player.src = src; 
+        player.play().catch(e => console.log("Click play manually"));
     }
-}
-
-function startWave(el) {
-    const cvs = el.querySelector('.wave-cvs');
-    const ctx = cvs.getContext('2d');
-    let off = 0;
-    function d() {
-        if(!el.classList.contains('playing')) return;
-        ctx.clearRect(0,0,cvs.width,cvs.height);
-        ctx.strokeStyle = "#fff";
-        ctx.lineWidth = 4; // Thick wave
-        ctx.beginPath();
-        for(let x=0; x<cvs.width; x++) ctx.lineTo(x, 17 + Math.sin(x*0.1 + off)*10);
-        ctx.stroke();
-        off += 0.2;
-        requestAnimationFrame(d);
-    }
-    d();
 }
