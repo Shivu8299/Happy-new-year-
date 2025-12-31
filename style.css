@@ -1,9 +1,9 @@
-/* GLOBAL */
+/* GLOBAL SETTINGS */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Quicksand', sans-serif; overflow: hidden; height: 100vh; width: 100vw; background-color: #000; }
+body { font-family: 'Quicksand', sans-serif; overflow: hidden; height: 100vh; width: 100vw; background-color: #0a0a1a; }
 
 /* THEMES */
-.dark-mode { background-color: #0a0a1a; color: white; } /* This is the blue you see */
+.dark-mode { background-color: #0a0a1a; color: white; }
 .light-mode { background-color: #FFF8E7; color: #4a4a4a; }
 .red-mode { background-color: #d32f2f; color: white; }
 
@@ -11,49 +11,69 @@ body { font-family: 'Quicksand', sans-serif; overflow: hidden; height: 100vh; wi
 .scene {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     opacity: 0; pointer-events: none; transition: opacity 0.8s ease;
-    display: flex; flex-direction: column; align-items: center;
-    z-index: 1;
+    display: flex; flex-direction: column; align-items: center; z-index: 1;
 }
 .scene.active { opacity: 1; pointer-events: all; z-index: 10; }
+.scrollable { overflow-y: auto; display: block; padding-bottom: 50px; }
 
-/* FIX: Ensure content is visible above the background */
-.content-center {
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    height: 100%; width: 100%; text-align: center; padding: 20px;
-    z-index: 100; /* Higher than canvas */
-    position: relative;
-}
+/* SCENE 1: FIREWORK & INTRO */
+#firework-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+.content-center { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; padding: 20px; z-index: 20; position: relative; }
+.hidden-content { opacity: 0; transition: opacity 1.5s ease; }
+.visible-content { opacity: 1; }
+.year-title { font-family: 'Cinzel', serif; font-size: 4rem; background: linear-gradient(to bottom, #fff, #f4c430); -webkit-background-clip: text; color: transparent; margin: 20px 0; }
+.cat-box img { width: 120px; border: 2px solid #f4c430; padding: 5px; }
 
-/* FIREWORK CANVAS */
-#firework-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    pointer-events: none;
-}
-
-/* INTRO CONTENT ANIMATION */
-.hidden-content { opacity: 0; transform: translateY(20px); transition: all 1.5s ease; }
-.visible-content { opacity: 1; transform: translateY(0); }
-
-/* SCENE 2: GREETING (BBQ & STRAWBERRY) */
-.corner-img { position: absolute; width: 120px; z-index: 15; }
+/* SCENE 2: GREETING (BBQ) */
+.corner-img { position: absolute; width: 110px; z-index: 15; }
 .top-left { top: 10px; left: 10px; }
 .bottom-right { bottom: 10px; right: 10px; }
+.card-container { background: white; color: #d32f2f; padding: 40px 20px; width: 85%; border-radius: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin-top: 60px; }
+.bbq-icon { font-size: 4rem; margin: 20px 0; }
+.white-pill-btn { background: #d32f2f; color: white; border: none; padding: 12px 25px; border-radius: 20px; cursor: pointer; }
 
-/* FLIP CARD STYLES */
+/* BUCKET LIST */
+.content-top { padding-top: 50px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.fancy-title { font-family: 'Playfair Display'; font-size: 2rem; color: #333; margin-bottom: 20px; }
+.sub-fancy { font-family: 'Dancing Script'; color: #d32f2f; font-size: 2.2rem; display: block; }
+.checklist { text-align: left; width: 85%; margin-bottom: 20px; }
+.check-item { margin-bottom: 15px; display: flex; gap: 10px; font-size: 1rem; color: #555; }
+
+/* MUSIC PLAYER */
+.cassette { width: 320px; height: 190px; background: #c0392b; border-radius: 12px; margin: 20px 0; position: relative; padding: 15px; color: white; cursor: pointer; }
+.cassette-label { background: #ecf0f1; height: 65%; border-radius: 5px; padding: 10px; display: flex; align-items: center; color: #333; }
+.album-art-big { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 3px solid #c0392b; margin-right: 15px; }
+.tape-wheels { display: flex; justify-content: space-between; padding: 0 40px; margin-top: 15px; }
+.wheel { width: 30px; height: 30px; background: white; border-radius: 50%; position: relative; border: 3px solid #333; }
+.cassette.playing .wheel { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* FLIP CARDS WITH TAPE */
 .flip-container { perspective: 1000px; margin: 20px 0; width: 280px; height: 320px; }
 .flipper { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
 .flip-container.flipped .flipper { transform: rotateY(180deg); }
-.front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.back { transform: rotateY(180deg); display: flex; align-items: center; justify-content: center; background: #fff; }
-.flip-img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+.front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.back { transform: rotateY(180deg); background: white; padding: 5px; }
+.flip-img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
+.tape { width: 90px; height: 25px; background: rgba(255, 255, 255, 0.4); position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-2deg); z-index: 5; }
+.note-pink { background: #ffcdd2; } .note-yellow { background: #fff9c4; } .note-white { background: #fff; }
+.handwriting { font-family: 'Dancing Script'; font-size: 1.6rem; text-align: center; }
 
-/* Tape Effect */
-.tape { 
-    width: 100px; height: 30px; background: rgba(255, 255, 255, 0.3); 
-    position: absolute; top: -15px; left: 50%; transform: translateX(-50%); 
-}
+/* LOADING & LETTER */
+.loading-cat { width: 80px; margin-bottom: 15px; }
+.progress-container { width: 80%; height: 10px; background: #ddd; border-radius: 10px; overflow: hidden; margin: 15px 0; }
+.progress-bar { width: 0%; height: 100%; background: #daa520; }
+.letter-container { background: white; width: 90%; max-width: 400px; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-top: 40px; }
+.letter-header img { width: 100%; display: block; }
+.letter-body { padding: 25px; text-align: left; }
+.seal-btn { background: #4a3b3b; color: white; width: 100%; padding: 12px; border-radius: 20px; border: none; font-weight: bold; margin-top: 15px; }
+
+/* FINAL PAGE typewriter */
+.white-box-shadow { background: white; padding: 30px 20px; border-radius: 15px; width: 90%; margin: 20px 0; }
+.handwriting-big { font-family: 'Dancing Script'; font-size: 1.8rem; color: #daa520; line-height: 1.5; min-height: 80px; }
+.hidden-btn { opacity: 0; pointer-events: none; transition: 1s; }
+.hidden-btn.show { opacity: 1; pointer-events: all; }
+.outline-btn { border: 2px solid #daa520; background: transparent; color: #daa520; padding: 10px 25px; border-radius: 20px; font-weight: bold; }
+.next-floating-btn { position: fixed; bottom: 20px; right: 20px; background: #e74c3c; color: white; padding: 10px 20px; border-radius: 30px; border: none; font-weight: bold; z-index: 100; }
+.spacer-bottom { height: 80px; }
+                    
