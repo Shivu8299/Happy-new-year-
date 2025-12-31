@@ -13,7 +13,10 @@
 
     <section id="scene-1" class="scene active dark-mode">
         <canvas id="star-canvas"></canvas>
-        <div class="content-center">
+        
+        <canvas id="firework-canvas"></canvas>
+
+        <div class="content-center hidden-content" id="intro-content">
             <div class="intro-sub">H A P P Y   N E W   Y E A R !</div>
             <h1 class="year-title">2026</h1>
             
@@ -23,7 +26,7 @@
 
             <p class="italic-msg">See what i made for you</p>
             
-            <div class="btn-container fade-in-delay">
+            <div class="btn-container">
                 <span class="sparkle">✦</span>
                 <button class="text-btn" onclick="goToScene(2)">STARTING THE JOURNEY</button>
             </div>
@@ -36,11 +39,9 @@
                 <img src="pop_cat.gif" alt="Loading Cat">
             </div>
             <p class="handwriting-text">closing 2025 on a good note...</p>
-            
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            
             <p class="loading-status">PREPARING SOMETHING FOR 2026: <span id="progressText">0%</span></p>
         </div>
     </section>
@@ -50,10 +51,8 @@
             <div class="polaroid-card">
                 <img src="ferrero_cat.png" alt="Ferrero Cat" class="main-card-img">
             </div>
-            
             <h2 class="fancy-title">Ready for 2026?</h2>
             <p class="sub-text">A new chapter is waiting to be written...</p>
-            
             <button class="outline-btn" onclick="goToScene(4)">IGNITE THE SPARK ✨</button>
         </div>
     </section>
@@ -65,52 +64,41 @@
 
             <div class="cassette" onclick="playMusic('high_on_you.mp3', this)">
                 <div class="cassette-label">
-                    <img src="song1.jpg" class="album-art" alt="art"> <div class="song-info">
+                    <img src="song1.jpg" class="album-art" alt="album art">
+                    <div class="song-info">
                         <span class="song-type">Type II / CrO2</span>
                         <div class="song-title">High On You</div>
                         <div class="song-desc">GOOD VIBES ONLY</div>
                     </div>
                     <div class="side-a">SIDE A</div>
                 </div>
-                <div class="tape-wheels">
-                    <div class="wheel left"></div>
-                    <div class="window"></div>
-                    <div class="wheel right"></div>
-                </div>
+                <div class="tape-wheels"><div class="wheel left"></div><div class="window"></div><div class="wheel right"></div></div>
             </div>
 
             <div class="cassette" onclick="playMusic('for_a_reason.mp3', this)">
                 <div class="cassette-label">
-                    <img src="song2.jpg" class="album-art" alt="art">
+                    <img src="song2.jpg" class="album-art" alt="album art">
                     <div class="song-info">
                         <span class="song-type">Type II / CrO2</span>
                         <div class="song-title">For a Reason</div>
-                        <div class="song-desc">SOME MOMENTS JUST FEEL RIGHT</div>
+                        <div class="song-desc">SOME MOMENTS FEEL RIGHT</div>
                     </div>
                     <div class="side-a">SIDE A</div>
                 </div>
-                <div class="tape-wheels">
-                    <div class="wheel left"></div>
-                    <div class="window"></div>
-                    <div class="wheel right"></div>
-                </div>
+                <div class="tape-wheels"><div class="wheel left"></div><div class="window"></div><div class="wheel right"></div></div>
             </div>
 
              <div class="cassette" onclick="playMusic('dil_ka_jo_haal.mp3', this)">
                 <div class="cassette-label">
-                    <img src="song1.jpg" class="album-art" alt="art">
+                    <img src="song1.jpg" class="album-art" alt="album art">
                     <div class="song-info">
                         <span class="song-type">Type II / CrO2</span>
                         <div class="song-title">Dil Ka Jo Haal Hai</div>
-                        <div class="song-desc">PERFECT FOR QUIET REFLECTIONS</div>
+                        <div class="song-desc">QUIET REFLECTIONS</div>
                     </div>
                     <div class="side-a">SIDE A</div>
                 </div>
-                <div class="tape-wheels">
-                    <div class="wheel left"></div>
-                    <div class="window"></div>
-                    <div class="wheel right"></div>
-                </div>
+                <div class="tape-wheels"><div class="wheel left"></div><div class="window"></div><div class="wheel right"></div></div>
             </div>
             
             <div class="spacer"></div>
@@ -156,16 +144,12 @@
             <div class="letter-header">
                 <img src="santa_top_left.png" alt="Decoration">
             </div>
-            
             <div class="letter-body">
                 <div class="greeting">Hey Anuradha,</div>
                 <h2 class="letter-title">One Last Note</h2>
-                
                 <p>As the new year begins, I just wanted to share a few good thoughts with you.</p>
                 <p>I hope the coming year brings you peace, growth, and many small wins.</p>
-                
                 <hr class="line-break">
-                
                 <button class="seal-btn" onclick="goToScene(7)">SEAL IT ✉ 🔒</button>
             </div>
         </div>
@@ -174,11 +158,9 @@
     <section id="scene-7" class="scene light-mode">
         <div class="content-center">
             <h2 class="fancy-title">Sealed ✉</h2>
-            
             <div class="white-box-shadow">
                 <p class="handwriting-big">Happy New Year! May 2026 be kind, exciting, and full of opportunities 🌟</p>
             </div>
-            
             <button class="outline-btn" onclick="location.reload()">RESTART THE JOURNEY</button>
         </div>
     </section>
