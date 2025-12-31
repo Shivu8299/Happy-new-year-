@@ -1,78 +1,69 @@
+:root {
+    --cream: #FFF9EB;
+    --red: #D32F2F;
+    --gold: #D4AF37;
+    --pink: #F8BBD0;
+    --yellow: #FFF9C4;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Montserrat', sans-serif; overflow: hidden; }
 
-body { 
-    background: #000; 
-    color: white; 
-    font-family: 'Montserrat', sans-serif; 
-    overflow: hidden; 
-    height: 100vh; 
-}
-
-/* Canvas Background */
-#star-canvas, #firework-canvas { 
-    position: absolute; inset: 0; z-index: 1; pointer-events: none; 
-}
-
-.main-container {
-    position: relative;
-    z-index: 10;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Scene Management */
-.scene { 
-    display: none; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
+.scene {
+    position: absolute; inset: 0; display: none;
+    flex-direction: column; align-items: center; justify-content: center;
     text-align: center;
-    width: 100%;
-    animation: fadeIn 1s ease-in;
 }
-
 .scene.active { display: flex; }
+.light-bg { background-color: var(--cream); color: #333; }
+.dark-mode { background-color: #050515; color: white; }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* Scene 1: Rocket & Intro */
+#star-canvas, #firework-canvas { position: absolute; inset: 0; }
+.year-title { font-size: 5rem; font-family: 'Dancing Script'; color: var(--gold); }
+.hidden { opacity: 0; transition: 1.5s; }
+.visible { opacity: 1; }
 
-/* Typography */
-h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #f4c430; margin-bottom: 20px; }
-.year-title { font-size: 4rem; background: linear-gradient(#fff, #f4c430); -webkit-background-clip: text; color: transparent; }
-
-/* Hidden Intro */
-.hidden-content { opacity: 0; transform: translateY(20px); transition: 1.5s; }
-.visible-content { opacity: 1; transform: translateY(0); }
-
-/* Envelope & Card */
-.envelope-wrapper { position: relative; width: 300px; height: 200px; cursor: pointer; margin-bottom: 30px; }
-.envelope-back { position: absolute; inset: 0; background: #b71c1c; border-radius: 5px; }
-.envelope-front { 
-    position: absolute; inset: 0; z-index: 10;
+/* Scene 2: Envelope */
+.envelope-container { perspective: 1000px; }
+.envelope {
+    width: 300px; height: 200px; background: var(--red);
+    position: relative; transition: 1s;
+}
+.flap {
+    position: absolute; top: 0; width: 0; height: 0;
     border-left: 150px solid transparent; border-right: 150px solid transparent;
-    border-bottom: 100px solid #e53935; 
+    border-top: 100px solid #B71C1C; z-index: 3; transition: 1s;
+    transform-origin: top;
 }
-.card-medium { 
-    background: white; width: 260px; padding: 20px; border-radius: 8px; color: #d32f2f; 
-    position: absolute; bottom: 10px; left: 20px; z-index: 5;
-    transition: transform 1.5s ease-out;
+.active .flap { transform: rotateX(180deg); }
+.letter {
+    position: absolute; bottom: 0; left: 10px; width: 280px; height: 180px;
+    background: white; z-index: 2; padding: 15px; transition: 1s;
 }
-.scene.active .card-medium { transform: translateY(-100px); }
+.active .letter { transform: translateY(-120px); height: 250px; }
 
-/* List & Buttons */
-.packet-list { list-style: none; margin: 20px 0; }
-.packet-list li { padding: 10px; border-bottom: 1px solid #333; }
-
-.cute-floating-next { 
-    background: #e74c3c; color: white; border: none; padding: 12px 30px; 
-    border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 20px;
+/* Scene 4: Cassettes */
+.cassette {
+    width: 320px; background: var(--red); padding: 15px;
+    border-radius: 10px; margin: 10px; cursor: pointer; color: white;
 }
+.cassette.pink { background: #AD1457; }
+.cassette-label {
+    background: #eee; height: 60px; border-radius: 5px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+}
+.spool { width: 30px; height: 30px; border: 4px solid #333; border-radius: 50%; }
+.wave-container { width: 150px; height: 40px; }
 
-/* Shield */
-.shield-icon { font-size: 5rem; margin-bottom: 15px; filter: drop-shadow(0 0 10px #f4c430); }
+/* Scene 6: Loading */
+.progress-bar { width: 250px; height: 10px; background: #ddd; border-radius: 5px; overflow: hidden; }
+.progress-fill { width: 0%; height: 100%; background: var(--gold); }
 
-/* Cassette Player */
-.cassette-box { background: #c0392b; padding: 20px; border-radius: 10px; cursor: pointer; width: 300px; }
-.c-label { background: white; padding: 10px; display: flex; justify-content: space-between; border-radius: 5px; color: #333; }
-.spool { font-weight: bold; font-size: 1.5rem; }
+/* Scene 8: Typing */
+#typing-text { font-size: 1.2rem; color: #555; max-width: 80%; margin: 20px auto; }
+
+.nav-btn {
+    background: var(--red); color: white; border: none;
+    padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;
+}
