@@ -5,88 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy New Year 2026</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="dark-mode">
 
-    <canvas id="star-canvas"></canvas>
-    <canvas id="firework-canvas"></canvas>
+    <section id="scene-1" class="scene active">
+        <canvas id="star-canvas"></canvas>
+        <canvas id="firework-canvas"></canvas>
+        <div id="intro-content" class="hidden">
+            <p class="sub-text">HAPPY NEW YEAR!</p>
+            <h1 class="year-title">2026</h1>
+            <div class="cat-pop">🐱</div>
+            <p class="click-text">See what i made for you</p>
+            <p class="status-text">STARTING THE JOURNEY</p>
+        </div>
+    </section>
 
-    <div class="main-container">
-        <section id="scene-1" class="scene active">
-            <div id="intro-content" class="hidden-content">
-                <h1 class="year-title">Happy New Year 2026</h1>
-                <p>The magic has begun...</p>
-            </div>
-        </section>
-
-        <section id="scene-2" class="scene">
-            <h1>You have a message!</h1>
-            <div class="envelope-wrapper" onclick="goToScene(3)">
-                <div class="envelope-back"></div>
-                <div class="card-medium">Open Me</div>
-                <div class="envelope-front"></div>
-            </div>
-            <p>Tap the envelope to open</p>
-        </section>
-
-        <section id="scene-3" class="scene">
-            <h1>2026 Vision</h1>
-            <ul class="packet-list">
-                <li>✨ Complete Jarvis System</li>
-                <li>🚀 Master Python Coding</li>
-                <li>📚 Academic Excellence</li>
-            </ul>
-            <button class="cute-floating-next" onclick="goToScene(4)">Continue</button>
-        </section>
-
-        <section id="scene-4" class="scene">
-            <h1>Your 2026 Anthem</h1>
-            <div class="cassette-box" onclick="toggleMusic('your-song.mp3', this)">
-                <div class="c-label">
-                    <div class="spool">O</div>
-                    <div class="wave-mid"><canvas class="wave-cvs"></canvas></div>
-                    <div class="spool">O</div>
+    <section id="scene-2" class="scene light-bg">
+        <div class="envelope-container">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="letter">
+                    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ4ZzR6NHR4ZzR6NHR4ZzR6NHR4ZzR6NHR4ZzR6NHR4ZzR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKMGpxx6LIsiP3a/giphy.gif" class="letter-cat">
+                    <h2>HAPPY NEW YEAR TO YOU ANUSHKA!</h2>
+                    <p>Thanks for being part of my 2025, now let's make 2026 even better!</p>
+                    <div class="bbq-icon">🍢</div>
+                    <button class="nav-btn" onclick="nextScene(3)">CONTINUE →</button>
                 </div>
-                <p>Click to Play Vibe</p>
+                <div class="pocket"></div>
             </div>
-            <audio id="main-audio"></audio>
-            <button class="cute-floating-next" onclick="goToScene(5)">Next</button>
-        </section>
+        </div>
+    </section>
 
-        <section id="scene-5" class="scene">
-            <h1>A Beautiful Memory</h1>
-            <div class="frame">
-                <img src="your-photo.jpg" alt="Your Memory" class="pic-frame">
+    <section id="scene-3" class="scene light-bg">
+        <div class="bucket-list-card">
+            <h2>Goals for 2026</h2>
+            <p class="sub-title">Bucket List</p>
+            <div class="list-item"><input type="checkbox"> 🌍 Visit a place you've always wanted</div>
+            <div class="list-item"><input type="checkbox"> 📚 Learn or read more consistently</div>
+            <div class="list-item"><input type="checkbox"> 🧘 Take better care of mind & body</div>
+            <div class="list-item"><input type="checkbox"> ❤️ Spend quality time with people</div>
+            <button class="nav-btn red-btn" onclick="nextScene(4)">LET'S GO! →</button>
+        </div>
+    </section>
+
+    <section id="scene-4" class="scene light-bg">
+        <p class="dedicated">Dedicated To You</p>
+        <h2 class="vibe-title">Songs That Match Your Vibes 🎶</h2>
+        
+        <div class="cassette" onclick="playSong('song1', this)">
+            <div class="cassette-label">
+                <div class="spool"></div>
+                <div class="wave-container"><canvas class="wave-cvs"></canvas></div>
+                <div class="spool"></div>
             </div>
-            <button class="cute-floating-next" onclick="goToScene(6)">Ready?</button>
-        </section>
+            <p class="song-info">High On You | Side A</p>
+        </div>
 
-        <section id="scene-6" class="scene">
-            <h1>Ready for 2026?</h1>
-            <p>New year, new opportunities, and new dreams.</p>
-            <button class="cute-floating-next" onclick="goToScene(7)">Let's Go</button>
-        </section>
+        <div class="cassette pink" onclick="playSong('song2', this)">
+            <div class="cassette-label">
+                <div class="spool"></div>
+                <div class="wave-container"><canvas class="wave-cvs"></canvas></div>
+                <div class="spool"></div>
+            </div>
+            <p class="song-info">For a Reason | Side A</p>
+        </div>
 
-        <section id="scene-7" class="scene">
-            <h1>Closing 2025</h1>
-            <p>Thank you for all the lessons. It's time to say goodbye.</p>
-            <button class="cute-floating-next" onclick="goToScene(8)">One Last Note</button>
-        </section>
+        <button class="nav-btn red-btn float-bottom" onclick="nextScene(5)">NEXT →</button>
+        <audio id="audio-player"></audio>
+    </section>
 
-        <section id="scene-8" class="scene">
-            <h1>A Special Note</h1>
-            <p>"The best is yet to come. Keep building, keep believing."</p>
-            <button class="cute-floating-next" onclick="goToScene(9)">Shield</button>
-        </section>
+    <section id="scene-5" class="scene light-bg">
+        <div class="sticky-container">
+            <div class="note pink">You make moments feel lighter 🤍</div>
+            <div class="note yellow">You're appreciated more than you know 🙂</div>
+            <div class="note white">
+                <p>New Year Voucher: Extra smiles 😄</p>
+                <img src="https://placekitten.com/100/100" class="note-cat">
+            </div>
+            <button class="nav-btn" onclick="nextScene(6)">CONTINUE</button>
+        </div>
+    </section>
 
-        <section id="scene-9" class="scene">
-            <div class="shield-icon">🛡️</div>
-            <h1>2026 Shield Activated</h1>
-            <p>Protection, Strength, and Success.</p>
-            <button class="cute-floating-next" onclick="location.reload()">Restart</button>
-        </section>
-    </div>
+    <section id="scene-6" class="scene light-bg">
+        <div class="ferrero-cat">🍫🐱</div>
+        <h2 class="ready-text">Ready for 2026?</h2>
+        <p>A new chapter is waiting to be written...</p>
+        <button class="nav-btn spark-btn" onclick="startLoading()">IGNITE THE SPARK ✧</button>
+        
+        <div class="loading-area hidden">
+            <p>closing 2025 on a good note...</p>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            <p class="percent">PREPARING SOMETHING: <span id="load-val">0</span>%</p>
+        </div>
+    </section>
+
+    <section id="scene-7" class="scene note-bg">
+        <div class="final-card">
+            <h3>Hey Anuradha, One Last Note</h3>
+            <p>As the new year begins, I just wanted to share a few good thoughts with you...</p>
+            <button class="nav-btn seal-btn" onclick="nextScene(8)">SEAL IT ✉️</button>
+        </div>
+    </section>
+
+    <section id="scene-8" class="scene light-bg">
+        <div class="sealed-box">
+            <p class="sealed-header">Sealed ✉️</p>
+            <div id="typing-text"></div>
+            <button class="nav-btn restart-btn" onclick="location.reload()">RESTART THE JOURNEY</button>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
