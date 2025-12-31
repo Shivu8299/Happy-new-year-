@@ -4,179 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy New Year 2026</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-dark: #0a0a12;
-            --bg-light: #fdf6e9;
-            --accent-red: #b22d2d;
-            --gold: #c5a059;
-            --text-gray: #4a4a4a;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: white; overflow: hidden; height: 100vh; }
-
-        canvas#fireworks { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; display: none; }
-
-        .screen { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: 0.5s ease; }
-        .active { display: flex; animation: fadeIn 0.8s forwards; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* --- INTRO --- */
-        .year-title { font-family: 'Playfair Display', serif; font-size: 80px; color: var(--gold); display: flex; align-items: center; }
-        .pop-cat-img { width: 65px; height: 65px; border: 2px solid var(--gold); border-radius: 10px; margin-left: 15px; }
-
-        /* --- ENVELOPE & BBQ --- */
-        #screen2 { background: var(--bg-light); color: var(--text-gray); }
-        .envelope { background: #fff; width: 100%; max-width: 360px; padding: 40px 20px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-bottom: 22px solid var(--accent-red); position: relative; }
-        .santa-icon { position: absolute; top: -30px; left: 20px; width: 60px; }
-        
-        /* Coded Barbecue to match video */
-        .bbq-box { position: relative; width: 140px; height: 140px; margin: 10px auto; }
-        .strawberry { width: 40px; position: absolute; bottom: 10px; right: -5px; }
-
-        /* --- OLD SCHOOL CASSETTE --- */
-        .cassette {
-            background: #222; color: #eee; width: 100%; max-width: 340px; 
-            padding: 12px; border-radius: 8px; margin-bottom: 15px;
-            display: flex; align-items: center; text-align: left;
-            border: 1px solid #444; cursor: pointer;
-        }
-        .cassette.active-tape { background: var(--accent-red); border-color: var(--accent-red); }
-        .tape-art { width: 55px; height: 55px; border-radius: 4px; margin-right: 15px; object-fit: cover; }
-        .tape-info p { font-size: 8px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin: 0; }
-        .tape-info h4 { font-size: 15px; font-weight: 600; margin: 2px 0; }
-
-        /* --- ACCURATE FLIP CARDS --- */
-        .card-stack { position: relative; width: 280px; height: 350px; margin-top: 20px; }
-        .card {
-            position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 12px;
-            padding: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 8px solid #fff;
-            transition: transform 0.6s ease, opacity 0.5s; cursor: pointer;
-        }
-        .card img { width: 100%; height: 75%; object-fit: cover; border-radius: 5px; }
-        .card p { font-family: 'Dancing Script', cursive; font-size: 20px; color: #444; margin-top: 15px; }
-        .card.swiped { transform: translateY(-150%) rotate(-15deg); opacity: 0; }
-
-        #c1 { z-index: 3; transform: rotate(-2deg); }
-        #c2 { z-index: 2; transform: translateY(10px) rotate(2deg); }
-        #c3 { z-index: 1; transform: translateY(20px); }
-
-        /* --- BUTTONS --- */
-        .btn-red { background: var(--accent-red); color: white; border: none; padding: 14px 45px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 14px; }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@600&family=Quicksand:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <canvas id="fireworks"></canvas>
-
-    <div class="screen active" id="screen1">
-        <p style="letter-spacing: 5px; font-size: 12px; margin-bottom: 10px;">HAPPY NEW YEAR!</p>
-        <h1 class="year-title">2026<img src="pop_cat.gif" class="pop-cat-img"></h1>
-        <p style="margin-top: 15px; opacity: 0.8;">See what i made for you</p>
-        <button onclick="nextScreen(2)" style="background:none; border:none; border-bottom:1px solid #fff; color:#fff; padding:5px; font-size:10px; margin-top:50px; cursor:pointer; letter-spacing:2px;">• STARTING THE JOURNEY</button>
-    </div>
-
-    <div class="screen" id="screen2">
-        <div class="envelope">
-            <img src="santa_top_left.png" class="santa-icon">
-            <h2 style="font-family:'Playfair Display'; color:var(--accent-red); font-size:24px;">HAPPY NEW YEAR TO YOU <br> ANUSHKA!</h2>
-            <p style="font-size:13px; color:#777; margin:15px 0;">Thanks for being part of my 2025, now let's make 2026 even better!</p>
-            <div class="bbq-box">
-                <svg viewBox="0 0 200 200" width="130">
-                    <path d="M70 150 L50 190 M130 150 L150 190" stroke="#333" stroke-width="5" stroke-linecap="round"/>
-                    <path d="M40 100 A60 60 0 0 0 160 100" fill="#e57373" />
-                    <rect x="40" y="95" width="120" height="10" rx="5" fill="#ef5350" />
-                    <circle cx="70" cy="70" r="8" fill="#fb8c00"/><circle cx="100" cy="60" r="8" fill="#4caf50"/><circle cx="130" cy="70" r="8" fill="#2196f3"/>
-                </svg>
-                <img src="strawberry_jump.gif" class="strawberry">
+    <section id="scene-1" class="scene active dark-mode">
+        <canvas id="star-canvas"></canvas>
+        <div class="content-center">
+            <div class="intro-sub">H A P P Y   N E W   Y E A R !</div>
+            <h1 class="year-title">2026</h1>
+            
+            <div class="cat-box">
+                <img src="pop_cat.gif" alt="Pop Cat" class="img-responsive">
             </div>
-            <button class="btn-red" onclick="nextScreen(3)">CONTINUE &nbsp; ➔</button>
+
+            <p class="italic-msg">See what i made for you</p>
+            
+            <div class="btn-container fade-in-delay">
+                <span class="sparkle">✦</span>
+                <button class="text-btn" onclick="goToScene(2)">STARTING THE JOURNEY</button>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="screen" id="screen3" style="background:var(--bg-light); color:var(--text-gray);">
-        <p style="font-family:'Playfair Display'; font-style:italic; color:var(--gold); margin-bottom:5px;">Dedicated To You</p>
-        <h2 style="font-family:'Playfair Display'; margin-bottom:20px;">Songs That Match Your Vibes</h2>
-        
-        <div class="cassette" id="t1" onclick="playSong('high_on_you.mp3', 't1')">
-            <img src="song1.jpg" class="tape-art">
-            <div class="tape-info"><p>Type II / CrO2</p><h4>High On You</h4><p>Good Vibes Only • Side A</p></div>
+    <section id="scene-2" class="scene light-mode">
+        <div class="content-center">
+            <div class="small-cat-icon">
+                <img src="pop_cat.gif" alt="Loading Cat">
+            </div>
+            <p class="handwriting-text">closing 2025 on a good note...</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <p class="loading-status">PREPARING SOMETHING FOR 2026: <span id="progressText">0%</span></p>
         </div>
-        <div class="cassette" id="t2" onclick="playSong('for_a_reason.mp3', 't2')">
-            <img src="song2.jpg" class="tape-art">
-            <div class="tape-info"><p>Type II / CrO2</p><h4>For a Reason</h4><p>Some Moments Feel Right</p></div>
+    </section>
+
+    <section id="scene-3" class="scene light-mode">
+        <div class="content-center">
+            <div class="polaroid-card">
+                <img src="ferrero_cat.png" alt="Ferrero Cat" class="main-card-img">
+            </div>
+            
+            <h2 class="fancy-title">Ready for 2026?</h2>
+            <p class="sub-text">A new chapter is waiting to be written...</p>
+            
+            <button class="outline-btn" onclick="goToScene(4)">IGNITE THE SPARK ✨</button>
         </div>
-        <div class="cassette" id="t3" onclick="playSong('dil_ka_jo_haal.mp3', 't3')">
-            <img src="song1.jpg" class="tape-art"> <div class="tape-info"><p>Type II / CrO2</p><h4>Dil ka Jo Haal Hai</h4><p>Perfect Reflections</p></div>
+    </section>
+
+    <section id="scene-4" class="scene light-mode scrollable">
+        <div class="content-top">
+            <div class="header-small">Dedicated To You</div>
+            <h2 class="fancy-title">Songs That Match Your Vibes 🎶</h2>
+
+            <div class="cassette" onclick="playMusic('high_on_you.mp3', this)">
+                <div class="cassette-label">
+                    <img src="song1.jpg" class="album-art" alt="art"> <div class="song-info">
+                        <span class="song-type">Type II / CrO2</span>
+                        <div class="song-title">High On You</div>
+                        <div class="song-desc">GOOD VIBES ONLY</div>
+                    </div>
+                    <div class="side-a">SIDE A</div>
+                </div>
+                <div class="tape-wheels">
+                    <div class="wheel left"></div>
+                    <div class="window"></div>
+                    <div class="wheel right"></div>
+                </div>
+            </div>
+
+            <div class="cassette" onclick="playMusic('for_a_reason.mp3', this)">
+                <div class="cassette-label">
+                    <img src="song2.jpg" class="album-art" alt="art">
+                    <div class="song-info">
+                        <span class="song-type">Type II / CrO2</span>
+                        <div class="song-title">For a Reason</div>
+                        <div class="song-desc">SOME MOMENTS JUST FEEL RIGHT</div>
+                    </div>
+                    <div class="side-a">SIDE A</div>
+                </div>
+                <div class="tape-wheels">
+                    <div class="wheel left"></div>
+                    <div class="window"></div>
+                    <div class="wheel right"></div>
+                </div>
+            </div>
+
+             <div class="cassette" onclick="playMusic('dil_ka_jo_haal.mp3', this)">
+                <div class="cassette-label">
+                    <img src="song1.jpg" class="album-art" alt="art">
+                    <div class="song-info">
+                        <span class="song-type">Type II / CrO2</span>
+                        <div class="song-title">Dil Ka Jo Haal Hai</div>
+                        <div class="song-desc">PERFECT FOR QUIET REFLECTIONS</div>
+                    </div>
+                    <div class="side-a">SIDE A</div>
+                </div>
+                <div class="tape-wheels">
+                    <div class="wheel left"></div>
+                    <div class="window"></div>
+                    <div class="wheel right"></div>
+                </div>
+            </div>
+            
+            <div class="spacer"></div>
+            <button class="next-floating-btn" onclick="goToScene(5)">Next ➡</button>
         </div>
+    </section>
 
-        <button class="btn-red" onclick="nextScreen(4)" style="margin-top:20px;">NEXT SURPRISE ➔</button>
-    </div>
+    <section id="scene-5" class="scene light-mode scrollable">
+        <div class="content-top">
+            <div class="header-small">simple, honest & heartfelt</div>
+            <h2 class="fancy-title">A Few Things I Want To Say To You ✨</h2>
 
-    <div class="screen" id="screen4" style="background:var(--bg-light); color:var(--text-gray);">
-        <p style="color:var(--gold);">simple, honest & heartfelt</p>
-        <h2 style="font-family:'Playfair Display'; margin-bottom:20px;">A Few Things I Want To Say</h2>
-        <div class="card-stack">
-            <div class="card" id="c1" onclick="this.classList.add('swiped')"><img src="flip1.jpg"><p>You make moments lighter 🤍</p></div>
-            <div class="card" id="c2" onclick="this.classList.add('swiped')"><img src="flip3.jpg"><p>You're appreciated ✨</p></div>
-            <div class="card" id="c3" onclick="this.classList.add('swiped')"><img src="flip1.jpg"><p>New Year Voucher 🎁</p></div>
+            <div class="white-card">
+                <img src="flip1.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="handwriting-header">You make moments feel lighter 🤍</h3>
+                </div>
+            </div>
+
+            <div class="white-card">
+                <img src="flip3.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="handwriting-header">You're appreciated more than you know 🙂</h3>
+                </div>
+            </div>
+
+            <div class="white-card">
+                <img src="final_cat_blend.png" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="handwriting-header">Valid All Year</h3>
+                    <p class="tiny-text">Especially on tough days</p>
+                    <div class="stamp">2026</div>
+                </div>
+            </div>
+
+            <button class="pink-pill-btn" onclick="goToScene(6)">Next 🌟 ➡</button>
+            <div class="spacer-bottom"></div>
         </div>
-        <button class="btn-red" style="margin-top:40px;" onclick="nextScreen(5)">READY? ➔</button>
-    </div>
+    </section>
 
-    <div class="screen" id="screen5" style="background:var(--bg-light); color:var(--text-gray);">
-        <img src="ferrero_cat.png" style="width:160px; margin-bottom:20px;">
-        <h2 style="font-family:'Playfair Display';">Ready for 2026?</h2>
-        <button class="btn-red" style="background:var(--gold);" onclick="startFinale()">IGNITE THE SPARK ✨</button>
-    </div>
+    <section id="scene-6" class="scene light-mode">
+        <div class="letter-container">
+            <div class="letter-header">
+                <img src="santa_top_left.png" alt="Decoration">
+            </div>
+            
+            <div class="letter-body">
+                <div class="greeting">Hey Anuradha,</div>
+                <h2 class="letter-title">One Last Note</h2>
+                
+                <p>As the new year begins, I just wanted to share a few good thoughts with you.</p>
+                <p>I hope the coming year brings you peace, growth, and many small wins.</p>
+                
+                <hr class="line-break">
+                
+                <button class="seal-btn" onclick="goToScene(7)">SEAL IT ✉ 🔒</button>
+            </div>
+        </div>
+    </section>
 
-    <script>
-        function nextScreen(n) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('screen'+n).classList.add('active');
-        }
+    <section id="scene-7" class="scene light-mode">
+        <div class="content-center">
+            <h2 class="fancy-title">Sealed ✉</h2>
+            
+            <div class="white-box-shadow">
+                <p class="handwriting-big">Happy New Year! May 2026 be kind, exciting, and full of opportunities 🌟</p>
+            </div>
+            
+            <button class="outline-btn" onclick="location.reload()">RESTART THE JOURNEY</button>
+        </div>
+    </section>
 
-        let audio = null;
-        function playSong(file, id) {
-            if(audio) audio.pause();
-            audio = new Audio(file);
-            audio.play();
-            document.querySelectorAll('.cassette').forEach(c => c.classList.remove('active-tape'));
-            document.getElementById(id).classList.add('active-tape');
-        }
-
-        function startFinale() {
-            document.getElementById('fireworks').style.display = 'block';
-            launchFireworks();
-            setTimeout(() => { alert("Happy New Year 2026, Anushka!"); }, 1000);
-        }
-
-        // --- FIREWORKS ENGINE ---
-        function launchFireworks() {
-            const canvas = document.getElementById('fireworks');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            let particles = [];
-            function createP(x, y) {
-                for(let i=0; i<30; i++) particles.push({x, y, vx:(Math.random()-0.5)*10, vy:(Math.random()-0.5)*10, a:1, c:`hsl(${Math.random()*360},100%,50%)`});
-            }
-            function anim() {
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-                particles.forEach((p,i) => {
-                    p.x+=p.vx; p.y+=p.vy; p.a-=0.01; ctx.globalAlpha=p.a; ctx.fillStyle=p.c;
-                    ctx.beginPath(); ctx.arc(p.x,p.y,3,0,Math.PI*2); ctx.fill();
-                    if(p.a<=0) particles.splice(i,1);
-                });
-                requestAnimationFrame(anim);
-            }
-            setInterval(() => createP(Math.random()*canvas.width, Math.random()*canvas.height), 600);
-            anim();
-        }
-    </script>
+    <audio id="bg-music"></audio>
+    <script src="script.js"></script>
 </body>
-    </html>
-    
+</html>
