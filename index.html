@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis New Year 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-dark: #05070a; --bg-light: #fef8e7; --accent-red: #b22d2d; --gold: #c5a059; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: white; overflow: hidden; }
+
+        .screen { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; text-align: center; padding: 20px; }
+        .active { display: flex; animation: fadeIn 0.8s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- INTRO --- */
+        #screen1 { background: radial-gradient(circle, #111 0%, #000 100%); }
+        .pop-cat-main { width: 80px; height: 80px; border: 2px solid var(--gold); border-radius: 8px; margin-left: 10px; }
+
+        /* --- GREETING & STRAWBERRY --- */
+        #screen2 { background: var(--bg-light); color: var(--accent-red); }
+        .envelope { background: white; width: 100%; max-width: 380px; border-radius: 15px; padding: 40px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-bottom: 25px solid var(--accent-red); position: relative; }
+        .santa-top { position: absolute; top: -30px; left: 20px; width: 60px; }
+        .strawberry-cat { width: 40px; vertical-align: middle; margin-left: -20px; }
+
+        /* --- FLIP CARDS --- */
+        .card-container { position: relative; width: 280px; height: 350px; perspective: 1000px; }
+        .flip-card { position: absolute; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .card-front { background: #fff; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 8px solid white; height: 100%; }
+        .card-front img { width: 100%; height: 80%; object-fit: cover; border-radius: 10px; }
+        .card-flipped { transform: translateY(-500px) rotate(20deg); opacity: 0; }
+
+        /* --- FINAL NOTE --- */
+        .final-note-container { background: var(--bg-light); color: #444; padding: 30px; border-radius: 20px; max-width: 400px; position: relative; }
+        .blend-cat { width: 100%; opacity: 0.9; mix-blend-mode: multiply; margin-bottom: 20px; }
+        .seal-btn { background: #333; color: white; padding: 12px 30px; border-radius: 25px; border: none; cursor: pointer; display: flex; align-items: center; gap: 10px; margin: 20px auto; }
+
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="screen active" id="screen1">
+        <p style="letter-spacing: 3px; font-size: 12px;">HAPPY NEW YEAR!</p>
+        <h1 style="font-family:'Playfair Display'; font-size: 70px; color: var(--gold);">2026 <img src="assets/pop_cat.gif" class="pop-cat-main"></h1>
+        <p style="margin: 20px 0;">See what i made for you</p>
+        <button onclick="nextScreen(2)" style="background:none; border:none; border-bottom:1px solid #fff; color:#fff; padding:5px; font-size:10px;">STARTING THE JOURNEY</button>
+    </div>
+
+    <div class="screen" id="screen2">
+        <div class="envelope">
+            <img src="assets/santa_top_left.png" class="santa-top">
+            <h2 style="font-family:'Playfair Display';">HAPPY NEW YEAR TO YOU <br> ANUSHKA!</h2>
+            <p style="color: #666; font-size: 14px; margin: 15px 0;">Thanks for being part of my 2025, now let's make 2026 even better!</p>
+            <div style="display:flex; align-items:center; justify-content:center;">
+                <img src="assets/barbecue.png" style="width: 120px;">
+                <img src="assets/strawberry_jump.gif" class="strawberry-cat">
+            </div>
+            <button onclick="nextScreen(3)" style="background:var(--accent-red); color:white; border:none; padding:15px 40px; border-radius:5px; margin-top:20px; font-weight:bold;">CONTINUE &nbsp; ➔</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen3" style="background: var(--bg-light);">
+        <p style="color: var(--gold); font-style: italic;">Dedicated To You</p>
+        <h2 style="color: #444; margin-bottom: 30px;">A Few Things I Want To Say</h2>
+        <div class="card-container">
+            <div class="flip-card" id="card3" onclick="flip(this)">
+                <div class="card-front"><img src="assets/flip3.jpg"><p>You make moments lighter 🤍</p></div>
+            </div>
+            <div class="flip-card" id="card2" onclick="flip(this)">
+                <div class="card-front"><img src="assets/flip2.jpg"><p>You're appreciated ✨</p></div>
+            </div>
+            <div class="flip-card" id="card1" onclick="flip(this)">
+                <div class="card-front"><img src="assets/flip1.jpg"><p>New Year Voucher 🎁</p></div>
+            </div>
+        </div>
+        <button onclick="nextScreen(4)" id="nextBtn" style="display:none; margin-top:20px; color: var(--accent-red); background:none; border:none; font-weight:bold;">NEXT ➔</button>
+    </div>
+
+    <div class="screen" id="screen4" style="background: var(--bg-light);">
+        <img src="assets/ferrero_cat.png" style="width: 150px; margin-bottom: 20px;">
+        <h2 style="color: #444; font-family:'Playfair Display';">Ready for 2026?</h2>
+        <p style="color: #888; margin-bottom: 30px;">A new chapter is waiting to be written...</p>
+        <button onclick="nextScreen(5)" style="background: var(--gold); color:white; border:none; padding:15px 30px; border-radius:30px; letter-spacing:1px;">IGNITE THE SPARK ✨</button>
+    </div>
+
+    <div class="screen" id="screen5" style="background: var(--bg-light);">
+        <div class="final-note-container">
+            <img src="assets/final_cat_blend.png" class="blend-cat">
+            <h3 style="font-family:'Playfair Display';">One Last Note</h3>
+            <p style="font-size: 14px; line-height: 1.6; margin-top: 10px;">As the new year begins, I just wanted to share a few good thoughts with you. I hope the coming year brings you peace, growth, and many small wins.</p>
+            <button class="seal-btn">SEAL IT ✉️</button>
+        </div>
+    </div>
+
+    <script>
+        function nextScreen(n) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen'+n).classList.add('active');
+        }
+
+        let flippedCount = 0;
+        function flip(card) {
+            card.classList.add('card-flipped');
+            flippedCount++;
+            if(flippedCount >= 3) {
+                document.getElementById('nextBtn').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
