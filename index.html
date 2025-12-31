@@ -2,107 +2,176 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Surprise for Anushka</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark: #0a0a0a;
+            --white: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* All Sections Styling */
+        .section {
+            display: none; /* Initially hidden */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 600px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--gold); }
+        p { line-height: 1.6; font-weight: 300; }
+
+        /* Buttons */
+        .btn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            border: 1px solid var(--gold);
+            background: transparent;
+            color: var(--gold);
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn:hover { background: var(--gold); color: var(--dark); }
+
+        /* Envelope Styling */
+        .envelope {
+            width: 150px;
+            height: 100px;
+            background: #c0392b;
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .envelope::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-top: 50px solid #e74c3c;
+        }
+
+        /* Image Placeholder */
+        .pic-frame {
+            width: 250px;
+            height: 250px;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #222; /* Add your image path in src later */
+            object-fit: cover;
+        }
+
+        /* List Styling */
+        ul { list-style: none; padding: 0; }
+        li { margin: 10px 0; font-size: 1.1rem; border-bottom: 1px solid #333; padding-bottom: 5px; }
+
+    </style>
 </head>
 <body>
 
-    <section id="scene-1" class="scene active dark-mode">
-        <canvas id="star-canvas"></canvas>
-        <canvas id="firework-canvas"></canvas>
-        <div class="content-center hidden-content" id="intro-content">
-            <div class="intro-sub">H A P P Y   N E W   Y E A R !</div>
-            <h1 class="year-title">2026</h1>
-            <div class="cat-box">
-                <img src="pop_cat.gif" alt="Pop Cat">
-            </div>
-            <p class="italic-msg">See what i made for you</p>
-            <button class="text-btn" onclick="goToScene(2)">STARTING THE JOURNEY</button>
+    <div id="firecracker-page" class="section active">
+        <h1 id="fire-text">🎆 2026 is loading...</h1>
+        <p>Wait for the magic!</p>
+    </div>
+
+    <div id="envelope-page" class="section">
+        <h1>You have a message!</h1>
+        <div class="envelope" onclick="nextPage('envelope-page', 'list-page')"></div>
+        <p>Tap the envelope to open</p>
+    </div>
+
+    <div id="list-page" class="section">
+        <h1>2026 Goals</h1>
+        <ul>
+            <li>✨ Keep Growing</li>
+            <li>🚀 Work on Jarvis Project</li>
+            <li>📚 Learn New Skills</li>
+        </ul>
+        <button class="btn" onclick="nextPage('list-page', 'song-page')">Continue</button>
+    </div>
+
+    <div id="song-page" class="section">
+        <h1>Your 2026 Anthem</h1>
+        <div style="margin: 20px 0;">
+            <p>🎵 Playing your favorite track...</p>
         </div>
-    </section>
+        <button class="btn" onclick="nextPage('song-page', 'pic-page')">Next</button>
+    </div>
 
-    <section id="scene-2" class="scene red-mode">
-        <div class="envelope-wrapper">
-            <div class="envelope-back"></div>
-            <div class="card-medium" id="bbq-card">
-                <img src="santa_top_left.png" class="santa-top-left">
-                <h2 class="stylish-card-head">HAPPY NEW YEAR TO YOU ANUSHKA!</h2>
-                <p class="card-p">Thanks for being part of my 2025, now let's make 2026 even better!</p>
-                <div class="bbq-semicircle">
-                    <span class="bbq-emoji">🍢</span>
-                    <span class="bbq-emoji">🔥</span>
-                    <span class="bbq-emoji">🍢</span>
-                    <img src="strawberry_jump.gif" class="strawberry-gif">
-                </div>
-                <button class="card-next-btn" onclick="goToScene(3)">Continue to see more surprises!</button>
-            </div>
-            <div class="envelope-front"></div>
-        </div>
-    </section>
+    <div id="pic-page" class="section">
+        <h1>A Beautiful Memory</h1>
+        <img src="https://via.placeholder.com/250" alt="Your Pic" class="pic-frame">
+        <button class="btn" onclick="nextPage('pic-page', 'ready-2026-page')">Ready for 2026?</button>
+    </div>
 
-    <section id="scene-3" class="scene light-mode">
-        <div class="bucket-container-aesthetic">
-            <h2 class="bucket-h2">Goals for 2026</h2>
-            <h3 class="bucket-h3">Bucket List</h3>
-            <div class="checklist-aesthetic">
-                <div class="check-row"><input type="checkbox" checked> 🌍 Visit a place you've always wanted</div>
-                <div class="check-row"><input type="checkbox"> 📚 Learn or read more consistently</div>
-                <div class="check-row"><input type="checkbox"> 🧘‍♀️ Take better care of mind & body</div>
-                <div class="check-row"><input type="checkbox"> ❤️ Spend quality time with loved ones</div>
-            </div>
-            <button class="go-btn-aesthetic" onclick="goToScene(4)">LET'S GO! ➔</button>
-        </div>
-    </section>
+    <div id="ready-2026-page" class="section">
+        <h1>Are you ready for 2026?</h1>
+        <p>New year, new opportunities, and new dreams.</p>
+        <button class="btn" onclick="nextPage('ready-2026-page', 'closing-2025-page')">Let's Go</button>
+    </div>
 
-    <section id="scene-4" class="scene light-mode scrollable">
-        <div class="music-header">
-            <p class="italics-cute">Dedicated To You</p>
-            <h2 class="stylish-h2">Songs That Match Your Vibes 🎶</h2>
-        </div>
+    <div id="closing-2025-page" class="section">
+        <h1>Closing the 2025 Chapter</h1>
+        <p>Thank you for all the lessons, 2025. It's time to say goodbye.</p>
+        <button class="btn" onclick="nextPage('closing-2025-page', 'note-page')">One Last Note</button>
+    </div>
 
-        <div class="cassette-box" onclick="toggleMusic('high_on_you.mp3', this)">
-            <div class="c-label">
-                <img src="song1.jpg" class="art-large">
-                <div class="c-info"><p class="t1">High On You</p><p class="t2">GOOD VIBES ONLY</p></div>
-            </div>
-            <div class="c-mech">
-                <div class="spool"><span>+</span></div>
-                <div class="wave-mid"><canvas class="wave-cvs"></canvas></div>
-                <div class="spool"><span>+</span></div>
-            </div>
-        </div>
+    <div id="note-page" class="section">
+        <h1>A Special Note</h1>
+        <p>"The best is yet to come. Keep building, keep believing."</p>
+        <button class="btn" onclick="nextPage('note-page', 'shield-page')">Finish</button>
+    </div>
 
-        <div class="cassette-box" onclick="toggleMusic('for_a_reason.mp3', this)">
-            <div class="c-label">
-                <img src="song2.jpg" class="art-large">
-                <div class="c-info"><p class="t1">For a Reason</p><p class="t2">SOME MOMENTS FEEL RIGHT</p></div>
-            </div>
-            <div class="c-mech">
-                <div class="spool"><span>+</span></div>
-                <div class="wave-mid"><canvas class="wave-cvs"></canvas></div>
-                <div class="spool"><span>+</span></div>
-            </div>
-        </div>
+    <div id="shield-page" class="section">
+        <h1>🛡️ Your 2026 Shield</h1>
+        <p>Protection, Strength, and Success for the year ahead.</p>
+        <h1 style="font-size: 1.5rem;">Happy New Year!</h1>
+        <button class="btn" onclick="location.reload()">Restart</button>
+    </div>
 
-        <div class="cassette-box" onclick="toggleMusic('dil_ka_jo_haal.mp3', this)">
-            <div class="c-label">
-                <img src="song1.jpg" class="art-large">
-                <div class="c-info"><p class="t1">Dil Ka Jo Haal Hai</p><p class="t2">PERFECT REFLECTIONS</p></div>
-            </div>
-            <div class="c-mech">
-                <div class="spool"><span>+</span></div>
-                <div class="wave-mid"><canvas class="wave-cvs"></canvas></div>
-                <div class="spool"><span>+</span></div>
-            </div>
-        </div>
+    <script>
+        // Fix for the GIF/Jeep issue:
+        // Automatically move from firecracker to envelope after 4 seconds
+        setTimeout(() => {
+            nextPage('firecracker-page', 'envelope-page');
+        }, 4000);
 
-        <button class="cute-floating-next" onclick="goToScene(5)">Next Surprises ➔</button>
-        <div class="spacer"></div>
-    </section>
-
-    <audio id="main-audio"></audio>
-    <script src="script.js"></script>
+        function nextPage(currentId, nextId) {
+            // Hide current
+            document.getElementById(currentId).classList.remove('active');
+            // Show next
+            document.getElementById(nextId).classList.add('active');
+        }
+    </script>
 </body>
 </html>
