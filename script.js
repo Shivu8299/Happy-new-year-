@@ -1,73 +1,89 @@
-const sC = document.getElementById('star-canvas');
+// --- Scene 1: Stars & Rocket ---
 const fC = document.getElementById('firework-canvas');
-const sX = sC.getContext('2d');
 const fX = fC.getContext('2d');
+fC.width = window.innerWidth; fC.height = window.innerHeight;
 
-sC.width = fC.width = window.innerWidth;
-sC.height = fC.height = window.innerHeight;
+let rocket = { x: fC.width / 2, y: fC.height, active: true };
 
-// Star Background
-let stars = [];
-for(let i=0; i<160; i++) stars.push({ x: Math.random()*sC.width, y: Math.random()*sC.height, r: Math.random()*1.5, a: Math.random() });
-
-function drawS() {
-    sX.clearRect(0,0,sC.width,sC.height);
-    stars.forEach(s => {
-        sX.fillStyle = `rgba(255,255,255,${s.a})`;
-        sX.beginPath(); sX.arc(s.x, s.y, s.r, 0, Math.PI*2); sX.fill();
-        s.a += (Math.random()-0.5)*0.05;
-        if(s.a<0) s.a=0; if(s.a>1) s.a=1;
-    });
-    requestAnimationFrame(drawS);
-}
-drawS();
-
-// Firework Logic
-let rocket = { x: fC.width/2, y: fC.height, targetY: fC.height/3, active: true };
-let parts = [];
-
-function animateF() {
-    fX.clearRect(0,0,fC.width,fC.height);
-    if(rocket.active) {
-        fX.fillStyle = "#f4c430";
-        fX.beginPath(); fX.arc(rocket.x, rocket.y, 4, 0, Math.PI*2); fX.fill();
-        rocket.y -= 6;
-        if(rocket.y <= rocket.targetY) {
+function animate() {
+    fX.clearRect(0, 0, fC.width, fC.height);
+    if (rocket.active) {
+        fX.fillStyle = "white";
+        fX.beginPath(); fX.arc(rocket.x, rocket.y, 3, 0, Math.PI * 2); fX.fill();
+        rocket.y -= 5;
+        if (rocket.y < fC.height / 3) {
             rocket.active = false;
-            for(let i=0; i<85; i++) parts.push({ x: rocket.x, y: rocket.y, ang: Math.random()*Math.PI*2, sp: Math.random()*6+2, a: 1 });
-            revealContent();
+            explode(rocket.x, rocket.y);
         }
     }
-    parts.forEach((p, i) => {
-        p.x += Math.cos(p.ang)*p.sp; p.y += Math.sin(p.ang)*p.sp;
-        p.a -= 0.015; p.sp *= 0.96;
-        fX.fillStyle = `rgba(244, 196, 48, ${p.a})`;
-        fX.beginPath(); fX.arc(p.x, p.y, 2.5, 0, Math.PI*2); fX.fill();
-        if(p.a <= 0) parts.splice(i, 1);
-    });
-    requestAnimationFrame(animateF);
+    requestAnimationFrame(animate);
 }
-animateF();
+animate();
 
-function revealContent() {
-    const intro = document.getElementById('intro-content');
-    intro.classList.add('visible-content');
-    // FIX: After burst, wait 3 seconds then move to Envelope
-    setTimeout(() => { goToScene(2); }, 3500);
+function explode(x, y) {
+    document.getElementById('intro-content').classList.remove('hidden');
+    document.getElementById('intro-content').classList.add('visible');
+    setTimeout(() => { nextScene(2); }, 4000);
 }
 
-function goToScene(n) {
+// --- Navigation ---
+function nextScene(n) {
     document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-    document.getElementById(`scene-${n}`).classList.add('active');
+    const target = document.getElementById('scene-' + n);
+    target.classList.add('active');
 }
 
-// Music Logic
-const player = document.getElementById('main-audio');
-function toggleMusic(src, el) {
-    if(!player.paused && player.src.includes(src)) {
-        player.pause();
-    } else {
-        player.src = src; 
-        player.play().catch(e => console.log("Click play manually"));
-    }
+// --- Music ---
+function playSong(id, el) {
+    const audio = document.getElementById('audio-player');
+    audio.src = "your-music-file.mp3"; // Link your music here
+    audio.play();
+    startWave(el.querySelector('.wave-cvs'));
 }
+
+function startWave(cvs) {
+    const ctx = cvs.getContext('2d');
+    let x = 0;
+    function draw() {
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+        ctx.beginPath();
+        for(let i=0; i<cvs.width; i++) {
+            ctx.lineTo(i, 20 + Math.sin(i*0.1 + x)*10);
+        }
+        ctx.stroke(); x+=0.2;
+        requestAnimationFrame(draw);
+    }
+    draw();
+}
+
+// --- Loading Bar ---
+function startLoading() {
+    document.querySelector('.loading-area').classList.remove('hidden');
+    let val = 0;
+    let int = setInterval(() => {
+        val++;
+        document.querySelector('.progress-fill').style.width = val + '%';
+        document.getElementById('load-val').innerText = val;
+        if(val >= 100) {
+            clearInterval(int);
+            setTimeout(() => nextScene(7), 500);
+        }
+    }, 50);
+}
+
+// --- Typing Effect ---
+const text = "Happy New Year! May 2026 be kind, exciting, and full of opportunities 🌟";
+function type() {
+    let i = 0;
+    let target = document.getElementById('typing-text');
+    let int = setInterval(() => {
+        target.innerHTML += text.charAt(i);
+        i++;
+        if(i >= text.length) clearInterval(int);
+    }, 50);
+}
+// Trigger typing when scene 8 opens
+window.addEventListener('click', () => {
+    if(document.getElementById('scene-8').classList.contains('active')) type();
+}, {once: true});
+            
