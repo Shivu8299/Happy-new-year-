@@ -1,11 +1,13 @@
 /* GLOBAL */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Quicksand', sans-serif; overflow: hidden; height: 100vh; width: 100vw; transition: background-color 0.8s ease; }
-.dark-mode { background-color: #0a0a1a; color: white; }
+body { font-family: 'Quicksand', sans-serif; overflow: hidden; height: 100vh; width: 100vw; background-color: #000; }
+
+/* THEMES */
+.dark-mode { background-color: #0a0a1a; color: white; } /* This is the blue you see */
 .light-mode { background-color: #FFF8E7; color: #4a4a4a; }
 .red-mode { background-color: #d32f2f; color: white; }
 
-/* SCENE LOGIC */
+/* SCENE MANAGEMENT */
 .scene {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     opacity: 0; pointer-events: none; transition: opacity 0.8s ease;
@@ -13,77 +15,45 @@ body { font-family: 'Quicksand', sans-serif; overflow: hidden; height: 100vh; wi
     z-index: 1;
 }
 .scene.active { opacity: 1; pointer-events: all; z-index: 10; }
-.scrollable { overflow-y: auto; display: block; padding-bottom: 50px; }
 
-/* INTRO */
-#firework-canvas { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; }
-.content-center { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; width: 100%; text-align: center; padding: 20px; z-index: 20; position: relative; }
-.hidden-content { opacity: 0; pointer-events: none; }
-.visible-content { opacity: 1; pointer-events: all; transition: opacity 1.5s ease; }
-.year-title { font-family: 'Cinzel', serif; font-size: 4rem; background: linear-gradient(to bottom, #fff, #f4c430); -webkit-background-clip: text; color: transparent; margin: 20px 0; }
-.cat-box img { width: 120px; height: 120px; border: 2px solid #f4c430; padding: 5px; object-fit: cover; }
-.text-btn { background: transparent; color: #f4c430; border: none; border-bottom: 1px solid #f4c430; padding-bottom: 5px; font-family: 'Cinzel'; letter-spacing: 2px; margin-top: 20px; cursor: pointer; }
+/* FIX: Ensure content is visible above the background */
+.content-center {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    height: 100%; width: 100%; text-align: center; padding: 20px;
+    z-index: 100; /* Higher than canvas */
+    position: relative;
+}
 
-/* GREETING CARD (Scene 2) */
-.corner-img { position: absolute; width: 100px; z-index: 15; }
-.top-left { top: 0; left: 0; }
-.bottom-right { bottom: 0; right: 0; }
-.card-container { background: white; color: #d32f2f; padding: 40px 20px; width: 85%; border-radius: 10px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-top: 50px; }
-.greeting-header { font-family: 'Dancing Script'; font-size: 2rem; margin-bottom: 10px; }
-.bbq-icon { font-size: 4rem; margin: 20px 0; }
-.white-pill-btn { background: #d32f2f; color: white; border: none; padding: 12px 25px; border-radius: 20px; font-size: 0.9rem; margin-top: 15px; cursor: pointer; }
+/* FIREWORK CANVAS */
+#firework-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
 
-/* BUCKET LIST (Scene 3) */
-.content-top { padding-top: 60px; text-align: center; display: flex; flex-direction: column; align-items: center; }
-.fancy-title { font-family: 'Playfair Display'; font-size: 2.2rem; color: #333; margin-bottom: 30px; }
-.sub-fancy { font-family: 'Dancing Script'; color: #d32f2f; font-size: 2.5rem; display: block; }
-.checklist { text-align: left; width: 85%; margin-bottom: 30px; }
-.check-item { margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px; }
-.check-item label { font-size: 1.1rem; line-height: 1.4; color: #555; }
-.check-item input { accent-color: #d32f2f; transform: scale(1.5); margin-top: 5px; }
+/* INTRO CONTENT ANIMATION */
+.hidden-content { opacity: 0; transform: translateY(20px); transition: all 1.5s ease; }
+.visible-content { opacity: 1; transform: translateY(0); }
 
-/* MUSIC PLAYER (Scene 4) */
-.cassette { width: 340px; height: 200px; background: #c0392b; border-radius: 15px; margin: 25px 0; position: relative; padding: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); cursor: pointer; transition: transform 0.2s; }
-.cassette:active { transform: scale(0.97); }
-.cassette-label { background: #ecf0f1; height: 65%; border-radius: 5px; padding: 10px; display: flex; align-items: center; }
-/* LARGER ALBUM ART */
-.album-art { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #c0392b; margin-right: 15px; }
-.song-title { font-family: 'Dancing Script'; font-size: 1.8rem; color: #2c3e50; }
-.song-desc { font-size: 0.7rem; letter-spacing: 1px; color: #7f8c8d; }
-.tape-wheels { display: flex; justify-content: space-between; padding: 0 40px; margin-top: 15px; }
-.wheel { width: 35px; height: 35px; background: white; border-radius: 50%; border: 4px solid #fff; position: relative; }
-.wheel::after { content:''; position: absolute; inset:0; border: 2px solid #333; border-radius: 50%; border-left-color: transparent; }
-.cassette.playing .wheel::after { animation: spin 1s linear infinite; }
-@keyframes spin { 100% { transform: rotate(360deg); } }
+/* SCENE 2: GREETING (BBQ & STRAWBERRY) */
+.corner-img { position: absolute; width: 120px; z-index: 15; }
+.top-left { top: 10px; left: 10px; }
+.bottom-right { bottom: 10px; right: 10px; }
 
-/* FLIP CARDS (Scene 5) */
-.flip-container { perspective: 1000px; margin: 20px 0; width: 280px; height: 320px; cursor: pointer; }
-.flipper { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
+/* FLIP CARD STYLES */
+.flip-container { perspective: 1000px; margin: 20px 0; width: 280px; height: 320px; }
+.flipper { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
 .flip-container.flipped .flipper { transform: rotateY(180deg); }
-.front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: center; align-items: center; }
-/* Back is the image */
-.back { transform: rotateY(180deg); background: white; padding: 10px; }
-.flip-img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
+.front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.back { transform: rotateY(180deg); display: flex; align-items: center; justify-content: center; background: #fff; }
+.flip-img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+
 /* Tape Effect */
-.tape { width: 80px; height: 25px; background: rgba(255, 255, 255, 0.4); position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-2deg); box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 5; }
-/* Note Colors */
-.note-pink { background: #ffcdd2; transform: rotate(-2deg); }
-.note-yellow { background: #fff9c4; transform: rotate(2deg); }
-.note-white { background: #fff; transform: rotate(-1deg); }
-.handwriting-header { font-family: 'Dancing Script'; font-size: 1.8rem; color: #333; }
-.pink-pill-btn { background: #ff4757; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: bold; margin-top: 30px; }
-
-/* LOADING & LETTER (Scene 7 & 8) */
-.progress-container { width: 80%; height: 8px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
-.progress-bar { width: 0%; height: 100%; background: #daa520; transition: width 0.1s linear; }
-.letter-container { background: white; width: 90%; max-width: 400px; border-radius: 5px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-top: 50px; }
-.letter-header img { width: 100%; display: block; }
-.letter-body { padding: 30px; text-align: left; }
-.seal-btn { background: #4a3b3b; color: white; width: 100%; padding: 15px; border-radius: 30px; border: none; margin-top: 20px; font-weight: bold; }
-
-/* SEALED (Scene 9) */
-.handwriting-big { font-family: 'Dancing Script'; font-size: 1.8rem; color: #daa520; line-height: 1.6; min-height: 100px; }
-.hidden-btn { opacity: 0; pointer-events: none; transition: opacity 1s; }
-.hidden-btn.show { opacity: 1; pointer-events: all; }
-.outline-btn { border: 2px solid #daa520; background: transparent; color: #daa520; padding: 10px 30px; border-radius: 30px; font-weight: bold; margin-top: 20px; }
-.spacer-bottom { height: 100px; }
+.tape { 
+    width: 100px; height: 30px; background: rgba(255, 255, 255, 0.3); 
+    position: absolute; top: -15px; left: 50%; transform: translateX(-50%); 
+}
